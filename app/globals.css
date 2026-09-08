@@ -1,0 +1,212 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Sahaayak visual system — design/DESIGN.md.
+ * Paper membership registers, receipt books, rubber stamps. Money is the
+ * hero, trust is a stamp (not a checkmark), ledger not dashboard.
+ */
+@theme {
+  --color-ink: #14211b;
+  --color-ink-2: #3a4740;
+  --color-ink-3: #5e6b62;
+  --color-ink-4: #8c978f;
+
+  --color-sage-50: #f4f6f1;
+  --color-sage-100: #e9ece5;
+  --color-sage-200: #dadfd4;
+  --color-sage-300: #c3cabb;
+
+  --color-green-50: #eef5f1;
+  --color-green-100: #d6e7de;
+  --color-green-200: #a9cdbc;
+  --color-green-300: #6faa93;
+  --color-green-500: #25795d;
+  --color-green-600: #17624a;
+  --color-green-700: #0e4a37;
+  --color-green-900: #092e22;
+
+  --color-ochre-50: #fbf3e4;
+  --color-ochre-100: #f6e3bf;
+  --color-ochre-300: #e0ac5b;
+  --color-ochre-500: #c87f1b;
+  --color-ochre-700: #965c10;
+
+  --color-slateb-100: #dce7ec;
+  --color-slateb-500: #3e7c9a;
+  --color-slateb-700: #2a5b73;
+
+  --color-brick-100: #f5dedb;
+  --color-brick-500: #b04a3f;
+  --color-brick-700: #8a362d;
+
+  --color-platform: #a8ada3;
+
+  --radius-xs: 3px;
+  --radius-card: 10px;
+  --radius-pill: 999px;
+
+  --font-sans: var(--font-familjen), var(--font-noto-deva), system-ui, sans-serif;
+  --font-deva: var(--font-noto-deva), var(--font-familjen), sans-serif;
+}
+
+/* shadcn primitives read these — remapped to the palette above so Button,
+   Card, Input, Form inherit the system without per-component edits. */
+:root {
+  --radius: 10px;
+  --background: var(--color-sage-100);
+  --foreground: var(--color-ink);
+  --card: #ffffff;
+  --card-foreground: var(--color-ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-green-600);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-sage-200);
+  --secondary-foreground: var(--color-ink);
+  --muted: var(--color-sage-100);
+  --muted-foreground: var(--color-ink-3);
+  --accent: var(--color-green-50);
+  --accent-foreground: var(--color-green-700);
+  --destructive: var(--color-brick-500);
+  --border: var(--color-sage-300);
+  --input: var(--color-sage-300);
+  --ring: var(--color-green-600);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  /* DESIGN.md quality floor: visible keyboard focus ring, 2px green-600, offset 2px. */
+  :focus-visible {
+    outline: 2px solid var(--color-green-600);
+    outline-offset: 2px;
+  }
+}
+
+/* Every rupee value, count, date and distance uses this so figures align
+   down a column (DESIGN.md — "Type"). */
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+}
+
+/* The society stamp — a circular double-ruled outline rotated -9deg at 92%
+   opacity, so it reads as ink on paper rather than a UI badge. */
+.stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-green-600);
+  color: var(--color-green-600);
+  border-radius: 50%;
+  padding: 0.45rem 0.5rem;
+  transform: rotate(-9deg);
+  font-weight: 700;
+  line-height: 1.05;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px var(--color-green-600);
+  opacity: 0.92;
+}
+.stamp-xs {
+  width: 52px;
+  height: 52px;
+  font-size: 5.5px;
+}
+.stamp-sm {
+  width: 74px;
+  height: 74px;
+  font-size: 7.5px;
+  letter-spacing: 0.02em;
+}
+.stamp-lg {
+  width: 104px;
+  height: 104px;
+  font-size: 10px;
+}
+/* Unstamped register entry — verification still pending. */
+.stamp-pending {
+  border-style: dashed;
+  opacity: 0.4;
+}
+
+/* Ledger rules — the receipt/register texture behind repeating line items,
+   closed with a double-rule total. */
+.ledger {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 27px,
+    var(--color-sage-200) 27px 28px
+  );
+}
+.rule-total {
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 3px double var(--color-ink);
+}
+
+/* Split bar — the product's signature. Never a pie or donut. */
+.split {
+  display: flex;
+  height: 34px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--color-ink);
+}
+.split > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+}
+
+/* The one animation in the entire product — search radar while matching. */
+@media (prefers-reduced-motion: no-preference) {
+  .pulse-ring {
+    animation: pulse-ring 2.4s ease-out infinite;
+  }
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.35);
+      opacity: 0.85;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+}

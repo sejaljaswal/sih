@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sahaayak — UI Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink:      { DEFAULT:'#14211B', 2:'#3A4740', 3:'#5E6B62', 4:'#8C978F' },
+        sage:     { 50:'#F4F6F1', 100:'#E9ECE5', 200:'#DADFD4', 300:'#C3CABB' },
+        green:    { 50:'#EEF5F1', 100:'#D6E7DE', 200:'#A9CDBC', 300:'#6FAA93',
+                    500:'#25795D', 600:'#17624A', 700:'#0E4A37', 900:'#092E22' },
+        ochre:    { 50:'#FBF3E4', 100:'#F6E3BF', 300:'#E0AC5B', 500:'#C87F1B', 700:'#965C10' },
+        slateb:   { 100:'#DCE7EC', 500:'#3E7C9A', 700:'#2A5B73' },
+        brick:    { 100:'#F5DEDB', 500:'#B04A3F', 700:'#8A362D' },
+      },
+      fontFamily: {
+        sans: ['"Familjen Grotesk"','"Noto Sans Devanagari"','system-ui','sans-serif'],
+        deva: ['"Noto Sans Devanagari"','"Familjen Grotesk"','sans-serif'],
+      },
+      borderRadius: { xs:'3px', card:'10px', pill:'999px' },
+    }
+  }
+}
+</script>
+<style>
+  :root { color-scheme: light; }
+  body { background:#E9ECE5; }
+  .num { font-variant-numeric: tabular-nums lining-nums; letter-spacing:-0.01em; }
+
+  /* ── The society stamp. The one bold element. ───────────────────── */
+  .stamp{
+    display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+    border:2px solid #17624A;color:#17624A;border-radius:50%;
+    padding:.45rem .5rem;transform:rotate(-9deg);
+    font-weight:700;line-height:1.05;text-align:center;
+    box-shadow:inset 0 0 0 1px #17624A;
+    opacity:.92;
+  }
+  .stamp::before{content:'';position:absolute;}
+  .stamp-sm{width:74px;height:74px;font-size:7.5px;letter-spacing:.02em}
+  .stamp-xs{width:52px;height:52px;font-size:5.5px}
+  .stamp-lg{width:104px;height:104px;font-size:10px}
+
+  /* ── Ledger rules: the receipt/register texture ─────────────────── */
+  .ledger{background-image:repeating-linear-gradient(to bottom,transparent 0 27px,#DADFD4 27px 28px);}
+  .rule-total{border-top:1px solid #14211B;border-bottom:3px double #14211B;}
+
+  /* ── Split bar ──────────────────────────────────────────────────── */
+  .split{display:flex;height:34px;border-radius:3px;overflow:hidden;border:1px solid #14211B}
+  .split > div{display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:600;color:#fff;position:relative}
+
+  /* phone chrome */
+  .phone{width:372px;background:#fff;border:10px solid #14211B;border-radius:34px;
+         overflow:hidden;box-shadow:0 18px 40px -18px rgba(20,33,27,.5)}
+  .phone-inner{height:748px;overflow:hidden;position:relative;background:#fff}
+  .statusbar{height:26px;display:flex;align-items:center;justify-content:space-between;
+             padding:0 16px;font-size:11px;font-weight:600;color:#14211B}
+  .screencap{font-size:11px;font-weight:600;color:#5E6B62;margin-bottom:8px}
+  .screencap b{color:#14211B;font-weight:700}
+
+  .desk{background:#fff;border:1px solid #C3CABB;border-radius:10px;overflow:hidden;
+        box-shadow:0 14px 34px -20px rgba(20,33,27,.45)}
+  .tabnum{font-variant-numeric:tabular-nums}
+  @media (prefers-reduced-motion: no-preference){
+    .pulse-ring{animation:pr 2.4s ease-out infinite}
+    @keyframes pr{0%{transform:scale(.35);opacity:.85}100%{transform:scale(1.6);opacity:0}}
+  }
+</style>
+</head>
+<body class="font-sans text-ink antialiased">
+
+<!-- ════════════════════════════ MASTHEAD ════════════════════════════ -->
+<header class="max-w-[1180px] mx-auto px-6 pt-16 pb-10">
+  <div class="flex items-start gap-6 flex-wrap">
+    <div class="relative">
+      <div class="stamp stamp-lg">
+        <span style="font-size:15px;letter-spacing:-.02em">सहायक</span>
+        <span style="margin-top:2px">SAHAAYAK</span>
+        <span style="opacity:.7;margin-top:1px">सहकारी सेवा</span>
+      </div>
+    </div>
+    <div class="flex-1 min-w-[320px]">
+      <h1 class="text-[42px] leading-[1.05] font-bold tracking-[-0.03em]">Sahaayak</h1>
+      <p class="text-ink-3 text-[15px] mt-2 max-w-[54ch] leading-relaxed">
+        Interface design for a cooperative-owned services platform. Four audiences,
+        one codebase: households booking a worker, cooperative members taking jobs,
+        society staff who verify them, and the federation that plans training.
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-10 grid md:grid-cols-3 gap-5 text-[13px] leading-relaxed">
+    <div class="bg-white border border-sage-300 rounded-card p-4">
+      <div class="font-bold mb-1.5">Money is the hero</div>
+      <p class="text-ink-3">Every screen that touches a rupee names where it goes.
+      The split bar, not a logo, is the product's signature.</p>
+    </div>
+    <div class="bg-white border border-sage-300 rounded-card p-4">
+      <div class="font-bold mb-1.5">Trust is a stamp, not a checkmark</div>
+      <p class="text-ink-3">Cooperative societies verify on paper, with a seal.
+      The badge borrows that, so verification reads as institutional rather than algorithmic.</p>
+    </div>
+    <div class="bg-white border border-sage-300 rounded-card p-4">
+      <div class="font-bold mb-1.5">Ledger, not dashboard</div>
+      <p class="text-ink-3">Ruled lines, tabular figures, double-rule totals.
+      Borrowed from the membership register the society already keeps.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════ TOKENS ════════════════════════════ -->
+<section class="max-w-[1180px] mx-auto px-6 pb-14">
+  <h2 class="text-[13px] font-bold tracking-[.06em] text-ink-3 mb-4">Palette</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+    <div><div class="h-16 rounded-xs bg-green-600 border border-ink/10"></div>
+      <div class="text-[11px] mt-1.5 font-semibold">green-600</div>
+      <div class="text-[11px] text-ink-3 num">#17624A · structure</div></div>
+    <div><div class="h-16 rounded-xs bg-green-900 border border-ink/10"></div>
+      <div class="text-[11px] mt-1.5 font-semibold">green-900</div>
+      <div class="text-[11px] text-ink-3 num">#092E22</div></div>
+    <div><div class="h-16 rounded-xs bg-ochre-500 border border-ink/10"></div>
+      <div class="text-[11px] mt-1.5 font-semibold">ochre-500</div>
+      <div class="text-[11px] text-ink-3 num">#C87F1B · urgency</div></div>
+    <div><div class="h-16 rounded-xs bg-slateb-500 border border-ink/10"></div>
+      <div class="text-[11px] mt-1.5 font-semibold">slate-500</div>
+      <div class="text-[11px] text-ink-3 num">#3E7C9A · society</div></div>
+    <div><div class="h-16 rounded-xs bg-brick-500 border border-ink/10"></div>
+      <div class="text-[11px] mt-1.5 font-semibold">brick-500</div>
+      <div class="text-[11px] text-ink-3 num">#B04A3F · stop</div></div>
+    <div><div class="h-16 rounded-xs bg-sage-100 border border-sage-300"></div>
+      <div class="text-[11px] mt-1.5 font-semibold">sage-100</div>
+      <div class="text-[11px] text-ink-3 num">#E9ECE5 · canvas</div></div>
+    <div><div class="h-16 rounded-xs bg-ink border border-ink/10"></div>
+      <div class="text-[11px] mt-1.5 font-semibold">ink</div>
+      <div class="text-[11px] text-ink-3 num">#14211B</div></div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8 mt-10">
+    <div>
+      <h2 class="text-[13px] font-bold tracking-[.06em] text-ink-3 mb-3">Type — Familjen Grotesk</h2>
+      <div class="bg-white border border-sage-300 rounded-card p-5 space-y-3">
+        <div class="text-[34px] font-bold tracking-[-.03em] leading-none">₹688 to Ramesh</div>
+        <div class="font-deva text-[22px] font-semibold">रमेश कुमार · बिजली मिस्त्री</div>
+        <div class="text-[15px] text-ink-2 leading-relaxed max-w-[52ch]">Body text sits at 15px with
+          generous leading. Devanagari runs 20–30% longer than Latin, so every layout is checked
+          in Hindi at 360px before it ships.</div>
+        <div class="text-[13px] text-ink-3">Caption · 13px</div>
+        <div class="num text-[13px] text-ink-3">Tabular figures 0123456789 — every amount aligns down a column</div>
+      </div>
+    </div>
+    <div>
+      <h2 class="text-[13px] font-bold tracking-[.06em] text-ink-3 mb-3">Why not the obvious palette</h2>
+      <div class="bg-white border border-sage-300 rounded-card p-5 text-[14px] leading-relaxed text-ink-2">
+        <p>The two nearby defaults were rejected on purpose. Purple-and-orange gradients read as
+        the private aggregator this product exists to displace. Government-portal blue reads as a
+        form you have to fill, not a service you'd choose.</p>
+        <p class="mt-3">Bottle green carries the cooperative and agricultural association without
+        tipping into eco-startup mint. Turmeric ochre is held back for two jobs only —
+        emergency, and money moving — so it never becomes decoration.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="border-t border-sage-300"></div>
+
+<!-- ════════════════════════════ CUSTOMER ════════════════════════════ -->
+<section class="max-w-[1180px] mx-auto px-6 py-14">
+  <div class="flex items-baseline gap-4 mb-2">
+    <h2 class="text-[28px] font-bold tracking-[-.02em]">Customer</h2>
+    <span class="text-[13px] text-ink-3">Mobile · Hindi default · 360px</span>
+  </div>
+  <p class="text-[15px] text-ink-3 max-w-[62ch] mb-10 leading-relaxed">
+    Meena needs an electrician tonight. She has been burned before by someone she found
+    on a shop noticeboard, so the screens lead with who the worker is and what it costs —
+    not with promotions.
+  </p>
+
+  <div class="flex gap-8 flex-wrap">
+
+    <!-- ── 1. HOME ── -->
+    <div>
+      <div class="screencap"><b>1 · Home</b> — describe the problem, don't hunt a menu</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">9:41</span><span class="num">▮▮▮ ⌁ 84%</span></div>
+
+        <div class="px-4 pt-1 pb-3 flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#17624A" stroke-width="2.2">
+              <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+            <span class="font-deva text-[13px] font-semibold">संजौली, शिमला</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#5E6B62" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="flex items-center gap-1 border border-sage-300 rounded-pill px-2 py-0.5">
+            <span class="font-deva text-[12px] font-bold text-green-600">हिं</span>
+            <span class="text-[10px] text-ink-4">/</span>
+            <span class="text-[12px] text-ink-4">EN</span>
+          </div>
+        </div>
+
+        <div class="px-4">
+          <h1 class="font-deva text-[22px] font-bold leading-tight">नमस्ते, मीना</h1>
+          <p class="font-deva text-[14px] text-ink-3 mt-0.5">क्या ठीक करवाना है?</p>
+
+          <div class="mt-3 border-2 border-green-600 rounded-card bg-green-50 px-3 py-2.5">
+            <div class="flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17624A" stroke-width="2.2">
+                <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <span class="font-deva text-[14px] text-ink-3">जैसे: पंखा नहीं चल रहा…</span>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2 pt-2 border-t border-green-100">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C87F1B" stroke-width="2.2">
+                <path d="M12 2v10m0 0a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v4a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>
+              <span class="font-deva text-[12px] text-ochre-700 font-semibold">बोलकर बताएं</span>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-baseline justify-between">
+            <h2 class="font-deva text-[14px] font-bold">सेवाएं</h2>
+            <span class="font-deva text-[12px] text-green-600 font-semibold">सभी देखें</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 mt-2">
+            <div class="border border-sage-300 rounded-card p-2.5 text-center">
+              <div class="text-[22px] leading-none">⚡</div>
+              <div class="font-deva text-[11.5px] font-semibold mt-1.5 leading-tight">बिजली</div>
+              <div class="num text-[10px] text-ink-3 mt-0.5">₹300 से</div>
+            </div>
+            <div class="border border-sage-300 rounded-card p-2.5 text-center">
+              <div class="text-[22px] leading-none">🔧</div>
+              <div class="font-deva text-[11.5px] font-semibold mt-1.5 leading-tight">नल-प्लंबर</div>
+              <div class="num text-[10px] text-ink-3 mt-0.5">₹250 से</div>
+            </div>
+            <div class="border border-sage-300 rounded-card p-2.5 text-center">
+              <div class="text-[22px] leading-none">🧹</div>
+              <div class="font-deva text-[11.5px] font-semibold mt-1.5 leading-tight">सफ़ाई</div>
+              <div class="num text-[10px] text-ink-3 mt-0.5">₹400 से</div>
+            </div>
+            <div class="border border-sage-300 rounded-card p-2.5 text-center">
+              <div class="text-[22px] leading-none">🪚</div>
+              <div class="font-deva text-[11.5px] font-semibold mt-1.5 leading-tight">बढ़ई</div>
+              <div class="num text-[10px] text-ink-3 mt-0.5">₹350 से</div>
+            </div>
+            <div class="border border-sage-300 rounded-card p-2.5 text-center">
+              <div class="text-[22px] leading-none">🫂</div>
+              <div class="font-deva text-[11.5px] font-semibold mt-1.5 leading-tight">देखभाल</div>
+              <div class="num text-[10px] text-ink-3 mt-0.5">₹500 से</div>
+            </div>
+            <div class="border border-sage-300 rounded-card p-2.5 text-center">
+              <div class="text-[22px] leading-none">🎨</div>
+              <div class="font-deva text-[11.5px] font-semibold mt-1.5 leading-tight">पुताई</div>
+              <div class="num text-[10px] text-ink-3 mt-0.5">₹600 से</div>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-ochre-50 border border-ochre-300 rounded-card px-3 py-2.5 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-pill bg-ochre-500 flex items-center justify-center shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4">
+                <path d="M13 2L4.5 13H11l-1 9 8.5-11H12l1-9z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="font-deva text-[13.5px] font-bold leading-tight">तुरंत मदद चाहिए?</div>
+              <div class="font-deva text-[11.5px] text-ink-3 leading-tight mt-0.5">15 किमी के भीतर उपलब्ध कारीगर</div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#965C10" stroke-width="3"><path d="M9 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 inset-x-0 border-t border-sage-300 bg-white grid grid-cols-3 py-2">
+          <div class="flex flex-col items-center gap-0.5 text-green-600">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg>
+            <span class="font-deva text-[10px] font-bold">होम</span></div>
+          <div class="flex flex-col items-center gap-0.5 text-ink-4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 10h8M8 15h5"/></svg>
+            <span class="font-deva text-[10px]">बुकिंग</span></div>
+          <div class="flex flex-col items-center gap-0.5 text-ink-4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c1.6-4 4.2-6 7.5-6s5.9 2 7.5 6"/></svg>
+            <span class="font-deva text-[10px]">प्रोफ़ाइल</span></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ── 2. SERVICE DETAIL ── -->
+    <div>
+      <div class="screencap"><b>2 · Before you book</b> — the price is broken down first, not at checkout</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">9:42</span><span class="num">▮▮▮ ⌁ 84%</span></div>
+        <div class="px-4 py-2 flex items-center gap-3 border-b border-sage-200">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14211B" stroke-width="2.4"><path d="M15 6l-6 6 6 6"/></svg>
+          <span class="font-deva text-[15px] font-bold">पंखा मरम्मत</span>
+        </div>
+
+        <div class="px-4 pt-3 overflow-y-auto" style="height:660px">
+          <div class="text-[13px] text-ink-3 font-deva leading-relaxed">
+            पंखे की मरम्मत, कैपेसिटर बदलना, वायरिंग जाँच। लगभग 45 मिनट।
+          </div>
+
+          <div class="mt-4 border border-ink rounded-xs overflow-hidden">
+            <div class="px-3 py-2 bg-ink text-white flex items-center justify-between">
+              <span class="font-deva text-[12.5px] font-bold">आपका ₹800 कहाँ जाता है</span>
+              <span class="text-[10px] opacity-70 font-semibold">SHIMLA RATE CARD</span>
+            </div>
+
+            <div class="p-3">
+              <div class="split">
+                <div style="width:86%;background:#17624A">86%</div>
+                <div style="width:10%;background:#3E7C9A"></div>
+                <div style="width:3%;background:#C87F1B"></div>
+                <div style="width:1%;background:#A8ADA3"></div>
+              </div>
+
+              <div class="mt-3 space-y-1.5 text-[12.5px]">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background:#17624A"></span>
+                  <span class="font-deva flex-1">कारीगर को</span>
+                  <span class="num font-bold">₹688</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background:#3E7C9A"></span>
+                  <span class="font-deva flex-1">सहकारी समिति को</span>
+                  <span class="num font-semibold">₹80</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background:#C87F1B"></span>
+                  <span class="font-deva flex-1">कारीगर के बीमा कोष में</span>
+                  <span class="num font-semibold">₹24</span>
+                </div>
+                <div class="flex items-center gap-2 text-ink-3">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background:#A8ADA3"></span>
+                  <span class="font-deva flex-1">प्लेटफ़ॉर्म</span>
+                  <span class="num">₹8</span>
+                </div>
+              </div>
+
+              <div class="rule-total mt-3 pt-1.5 flex items-center justify-between">
+                <span class="font-deva text-[13px] font-bold">कुल</span>
+                <span class="num text-[17px] font-bold">₹800</span>
+              </div>
+
+              <p class="font-deva text-[11.5px] text-ink-3 mt-2.5 leading-snug">
+                ₹80 शिमला की आपकी अपनी सहकारी समिति के पास रहता है — किसी निजी कंपनी के पास नहीं जाता।
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <div class="font-deva text-[13px] font-bold mb-2">अभी उपलब्ध</div>
+            <div class="flex items-center gap-3 border border-sage-300 rounded-card p-2.5">
+              <div class="w-11 h-11 rounded-pill bg-sage-200 flex items-center justify-center text-[15px] font-bold shrink-0">रा</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-deva text-[13.5px] font-bold leading-tight">रमेश कुमार</div>
+                <div class="text-[11.5px] text-ink-3 num">★ 4.8 · 2.3 km · 15 वर्ष</div>
+              </div>
+              <div class="relative shrink-0"><div class="stamp stamp-xs">
+                <span style="font-size:7px">✓</span><span>SHIMLA</span><span>SOCIETY</span></div></div>
+            </div>
+            <div class="flex items-center gap-3 border border-sage-300 rounded-card p-2.5 mt-2">
+              <div class="w-11 h-11 rounded-pill bg-sage-200 flex items-center justify-center text-[15px] font-bold shrink-0">सु</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-deva text-[13.5px] font-bold leading-tight">सुनीता देवी</div>
+                <div class="text-[11.5px] text-ink-3 num">★ 4.6 · 3.1 km · 8 वर्ष</div>
+              </div>
+              <div class="relative shrink-0"><div class="stamp stamp-xs">
+                <span style="font-size:7px">✓</span><span>SHIMLA</span><span>SOCIETY</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 inset-x-0 bg-white border-t border-sage-300 p-3">
+          <button class="w-full bg-green-600 text-white rounded-card py-3 font-deva font-bold text-[15px]">
+            समय चुनें
+          </button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ── 3. MATCHING ── -->
+    <div>
+      <div class="screencap"><b>3 · Searching</b> — the wait is where trust is won or lost</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">9:43</span><span class="num">▮▮▮ ⌁ 83%</span></div>
+
+        <div class="px-4 pt-4 pb-3 flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 bg-ochre-500 text-white rounded-xs px-2 py-1">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8"><path d="M13 2L4.5 13H11l-1 9 8.5-11H12l1-9z"/></svg>
+            <span class="font-deva text-[11px] font-bold">तुरंत सेवा</span>
+          </span>
+          <span class="font-deva text-[12px] text-ink-3">बिजली मरम्मत</span>
+        </div>
+
+        <div class="relative h-[260px] mx-4 rounded-card overflow-hidden border border-sage-300 bg-sage-50">
+          <div class="absolute inset-0 opacity-[.35]"
+               style="background-image:linear-gradient(#C3CABB 1px,transparent 1px),linear-gradient(90deg,#C3CABB 1px,transparent 1px);background-size:34px 34px"></div>
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="pulse-ring absolute -inset-24 rounded-full border-2 border-green-300"></div>
+            <div class="pulse-ring absolute -inset-24 rounded-full border-2 border-green-300" style="animation-delay:1.2s"></div>
+            <div class="w-4 h-4 rounded-full bg-green-600 ring-4 ring-white relative"></div>
+          </div>
+          <div class="absolute" style="left:24%;top:30%"><div class="w-7 h-7 rounded-pill bg-white border-2 border-green-600 flex items-center justify-center text-[10px] font-bold">रा</div></div>
+          <div class="absolute" style="left:70%;top:24%"><div class="w-7 h-7 rounded-pill bg-white border-2 border-green-600 flex items-center justify-center text-[10px] font-bold">सु</div></div>
+          <div class="absolute" style="left:78%;top:64%"><div class="w-7 h-7 rounded-pill bg-white border-2 border-green-600 flex items-center justify-center text-[10px] font-bold">मो</div></div>
+          <div class="absolute" style="left:17%;top:70%"><div class="w-7 h-7 rounded-pill bg-white border-2 border-green-600 flex items-center justify-center text-[10px] font-bold">क</div></div>
+          <div class="absolute" style="left:47%;top:80%"><div class="w-7 h-7 rounded-pill bg-white border-2 border-green-600 flex items-center justify-center text-[10px] font-bold">दी</div></div>
+        </div>
+
+        <div class="px-4 mt-5 text-center">
+          <div class="font-deva text-[18px] font-bold">5 सत्यापित कारीगर मिले</div>
+          <div class="font-deva text-[13px] text-ink-3 mt-1">15 किमी के भीतर · सभी को एक साथ भेजा गया</div>
+          <div class="num text-[40px] font-bold text-ochre-500 mt-4 leading-none">0:22</div>
+          <div class="font-deva text-[12px] text-ink-3 mt-1">प्रतीक्षा में</div>
+        </div>
+
+        <div class="mx-4 mt-5 ledger border border-sage-300 rounded-card overflow-hidden">
+          <div class="px-3 py-1.5 flex items-center gap-2" style="height:28px">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+            <span class="font-deva text-[11.5px] flex-1">रमेश कुमार · 2.3 किमी</span>
+            <span class="font-deva text-[11px] text-ink-3">भेजा गया</span>
+          </div>
+          <div class="px-3 py-1.5 flex items-center gap-2" style="height:28px">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+            <span class="font-deva text-[11.5px] flex-1">सुनीता देवी · 3.1 किमी</span>
+            <span class="font-deva text-[11px] text-ink-3">भेजा गया</span>
+          </div>
+          <div class="px-3 py-1.5 flex items-center gap-2" style="height:28px">
+            <span class="w-1.5 h-1.5 rounded-full bg-sage-300"></span>
+            <span class="font-deva text-[11.5px] flex-1 text-ink-3">मोहन लाल · 6.8 किमी</span>
+            <span class="font-deva text-[11px] text-ink-4">कतार में</span>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 inset-x-0 p-3">
+          <button class="w-full border border-sage-300 rounded-card py-2.5 font-deva text-[14px] text-ink-3">रद्द करें</button>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="max-w-[1180px] mx-auto px-6 pb-14">
+  <div class="flex gap-8 flex-wrap">
+
+    <!-- ── 4. ASSIGNED ── -->
+    <div>
+      <div class="screencap"><b>4 · Worker assigned</b> — the stamp is the first thing she sees</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">9:43</span><span class="num">▮▮▮ ⌁ 83%</span></div>
+
+        <div class="bg-green-600 text-white px-4 pt-4 pb-5">
+          <div class="font-deva text-[13px] opacity-85">22 सेकंड में स्वीकार</div>
+          <div class="font-deva text-[21px] font-bold leading-tight mt-1">रमेश आ रहे हैं</div>
+        </div>
+
+        <div class="px-4 -mt-3">
+          <div class="bg-white border border-sage-300 rounded-card p-4 shadow-sm">
+            <div class="flex items-start gap-3">
+              <div class="w-16 h-16 rounded-card bg-sage-200 flex items-center justify-center text-[22px] font-bold shrink-0">रा</div>
+              <div class="flex-1 min-w-0 pt-0.5">
+                <div class="font-deva text-[17px] font-bold leading-tight">रमेश कुमार</div>
+                <div class="font-deva text-[12.5px] text-ink-3 mt-0.5">बिजली मिस्त्री · 15 वर्ष अनुभव</div>
+                <div class="num text-[12.5px] mt-1.5">★ 4.8 <span class="text-ink-3">· 214 काम</span></div>
+              </div>
+              <div class="relative shrink-0 -mt-1"><div class="stamp stamp-sm">
+                <span style="font-size:9px">✓ सत्यापित</span>
+                <span style="margin-top:1px">SHIMLA LABOUR</span>
+                <span>COOP SOCIETY</span>
+                <span style="opacity:.65;margin-top:1px">REG 1987</span>
+              </div></div>
+            </div>
+
+            <div class="mt-3 pt-3 border-t border-sage-200 grid grid-cols-3 gap-2 text-center">
+              <div><div class="num text-[15px] font-bold">2.3</div><div class="font-deva text-[10.5px] text-ink-3">किमी दूर</div></div>
+              <div><div class="num text-[15px] font-bold">9 मिनट</div><div class="font-deva text-[10.5px] text-ink-3">पहुँचेंगे</div></div>
+              <div><div class="num text-[15px] font-bold">₹800</div><div class="font-deva text-[10.5px] text-ink-3">अनुमानित</div></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mt-3">
+              <button class="border border-green-600 text-green-600 rounded-card py-2 font-deva text-[13.5px] font-bold flex items-center justify-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 5c0 8.3 6.7 15 15 15v-3.4l-4-1.6-2 2a13 13 0 0 1-6-6l2-2L7.4 5H4z"/></svg>
+                कॉल करें
+              </button>
+              <button class="border border-sage-300 rounded-card py-2 font-deva text-[13.5px]">संदेश</button>
+            </div>
+          </div>
+
+          <div class="mt-3 bg-ochre-50 border border-ochre-300 rounded-card p-3">
+            <div class="font-deva text-[12px] font-semibold text-ochre-700">काम शुरू करने का कोड</div>
+            <div class="flex gap-2 mt-2">
+              <div class="flex-1 h-11 border-2 border-ochre-500 rounded-xs flex items-center justify-center num text-[22px] font-bold">4</div>
+              <div class="flex-1 h-11 border-2 border-ochre-500 rounded-xs flex items-center justify-center num text-[22px] font-bold">1</div>
+              <div class="flex-1 h-11 border-2 border-ochre-500 rounded-xs flex items-center justify-center num text-[22px] font-bold">7</div>
+              <div class="flex-1 h-11 border-2 border-ochre-500 rounded-xs flex items-center justify-center num text-[22px] font-bold">2</div>
+            </div>
+            <p class="font-deva text-[11.5px] text-ink-3 mt-2 leading-snug">
+              यह कोड रमेश को तभी बताएं जब वे आपके घर पहुँच जाएं। इसके बिना काम शुरू नहीं होगा।
+            </p>
+          </div>
+
+          <div class="mt-3">
+            <div class="font-deva text-[12.5px] font-bold mb-2">काम की स्थिति</div>
+            <div class="space-y-0">
+              <div class="flex gap-2.5">
+                <div class="flex flex-col items-center">
+                  <div class="w-4 h-4 rounded-full bg-green-600 flex items-center justify-center">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M4 12l5 5L20 6"/></svg></div>
+                  <div class="w-0.5 flex-1 bg-green-600"></div>
+                </div>
+                <div class="pb-3"><div class="font-deva text-[12.5px] font-semibold">स्वीकार किया</div>
+                  <div class="num text-[11px] text-ink-3">9:43 AM</div></div>
+              </div>
+              <div class="flex gap-2.5">
+                <div class="flex flex-col items-center">
+                  <div class="w-4 h-4 rounded-full bg-white border-2 border-green-600"></div>
+                  <div class="w-0.5 flex-1 bg-sage-300"></div>
+                </div>
+                <div class="pb-3"><div class="font-deva text-[12.5px] font-semibold">रास्ते में</div>
+                  <div class="font-deva text-[11px] text-ink-3">अभी</div></div>
+              </div>
+              <div class="flex gap-2.5">
+                <div class="flex flex-col items-center"><div class="w-4 h-4 rounded-full bg-white border-2 border-sage-300"></div><div class="w-0.5 flex-1 bg-sage-300"></div></div>
+                <div class="pb-3"><div class="font-deva text-[12.5px] text-ink-4">कोड से शुरू</div></div>
+              </div>
+              <div class="flex gap-2.5">
+                <div class="flex flex-col items-center"><div class="w-4 h-4 rounded-full bg-white border-2 border-sage-300"></div></div>
+                <div><div class="font-deva text-[12.5px] text-ink-4">पूरा व भुगतान</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ── 5. PAID / SPLIT ── -->
+    <div>
+      <div class="screencap"><b>5 · Paid</b> — the receipt that makes the cooperative model visible</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">11:07</span><span class="num">▮▮▮ ⌁ 79%</span></div>
+
+        <div class="px-4 pt-5 text-center">
+          <div class="w-12 h-12 rounded-pill bg-green-600 mx-auto flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>
+          </div>
+          <div class="font-deva text-[19px] font-bold mt-3">भुगतान हो गया</div>
+          <div class="font-deva text-[13px] text-ink-3 mt-0.5">UPI · रमेश कुमार को</div>
+        </div>
+
+        <div class="mx-4 mt-5 border border-ink rounded-xs overflow-hidden">
+          <div class="px-3 py-2 bg-ink text-white flex items-center justify-between">
+            <span class="text-[11px] font-bold num">SHY/2026-27/000418</span>
+            <span class="text-[11px] opacity-70 num">2 सित 2026</span>
+          </div>
+
+          <div class="p-3">
+            <div class="ledger">
+              <div class="flex items-center" style="height:28px">
+                <span class="font-deva text-[12.5px] flex-1">पंखा मरम्मत</span>
+                <span class="num text-[12.5px]">₹600</span></div>
+              <div class="flex items-center" style="height:28px">
+                <span class="font-deva text-[12.5px] flex-1">सामान (कैपेसिटर)</span>
+                <span class="num text-[12.5px]">₹200</span></div>
+            </div>
+            <div class="rule-total mt-1 pt-1.5 flex items-center justify-between">
+              <span class="font-deva text-[13px] font-bold">कुल भुगतान</span>
+              <span class="num text-[18px] font-bold">₹800</span>
+            </div>
+
+            <div class="mt-4">
+              <div class="font-deva text-[12px] font-bold mb-2">यह पैसा कहाँ गया</div>
+              <div class="split">
+                <div style="width:86%;background:#17624A">₹688</div>
+                <div style="width:10%;background:#3E7C9A">₹80</div>
+                <div style="width:3%;background:#C87F1B"></div>
+                <div style="width:1%;background:#A8ADA3"></div>
+              </div>
+
+              <div class="mt-3 space-y-2">
+                <div class="flex items-start gap-2">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0 mt-1" style="background:#17624A"></span>
+                  <div class="flex-1"><div class="font-deva text-[12.5px] font-semibold">रमेश कुमार</div>
+                    <div class="font-deva text-[11px] text-ink-3">कारीगर की मज़दूरी</div></div>
+                  <span class="num text-[13px] font-bold">₹688</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0 mt-1" style="background:#3E7C9A"></span>
+                  <div class="flex-1"><div class="font-deva text-[12.5px] font-semibold">शिमला श्रमिक सहकारी समिति</div>
+                    <div class="font-deva text-[11px] text-ink-3">समिति का कमीशन · 10%</div></div>
+                  <span class="num text-[13px] font-semibold">₹80</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0 mt-1" style="background:#C87F1B"></span>
+                  <div class="flex-1"><div class="font-deva text-[12.5px] font-semibold">बीमा कोष</div>
+                    <div class="font-deva text-[11px] text-ink-3">हर काम पर स्वतः जमा · 3%</div></div>
+                  <span class="num text-[13px] font-semibold">₹24</span>
+                </div>
+                <div class="flex items-start gap-2 text-ink-3">
+                  <span class="w-2.5 h-2.5 rounded-sm shrink-0 mt-1" style="background:#A8ADA3"></span>
+                  <div class="flex-1"><div class="font-deva text-[12.5px]">प्लेटफ़ॉर्म</div></div>
+                  <span class="num text-[13px]">₹8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mx-4 mt-3 bg-green-50 border border-green-200 rounded-card px-3 py-2.5">
+          <p class="font-deva text-[12px] leading-snug">
+            ₹80 शिमला में ही रहा। ₹24 रमेश के बीमा कोष में गया — जो अब
+            <span class="num font-bold">₹1,464</span> हो चुका है।
+          </p>
+        </div>
+
+        <div class="absolute bottom-0 inset-x-0 bg-white border-t border-sage-300 p-3 flex gap-2">
+          <button class="flex-1 border border-sage-300 rounded-card py-2.5 font-deva text-[13.5px] font-semibold">रसीद</button>
+          <button class="flex-1 bg-green-600 text-white rounded-card py-2.5 font-deva text-[13.5px] font-bold">रेटिंग दें</button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ── 6. WORKER OFFER ── -->
+    <div>
+      <div class="screencap"><b>6 · Worker — incoming job</b> — 18px minimum, one decision, no reading</div>
+      <div class="phone"><div class="phone-inner bg-ink">
+        <div class="statusbar text-white"><span class="num">9:43</span><span class="num">▮▮▮ ⌁ 61%</span></div>
+
+        <div class="px-5 pt-6 text-center">
+          <span class="inline-flex items-center gap-1.5 bg-ochre-500 rounded-xs px-2.5 py-1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8"><path d="M13 2L4.5 13H11l-1 9 8.5-11H12l1-9z"/></svg>
+            <span class="font-deva text-[12px] font-bold text-white">तुरंत काम</span>
+          </span>
+          <div class="font-deva text-[26px] font-bold text-white mt-4 leading-tight">बिजली मरम्मत</div>
+        </div>
+
+        <div class="mx-5 mt-5 bg-white rounded-card p-5">
+          <div class="text-center pb-4 border-b border-sage-200">
+            <div class="font-deva text-[13px] text-ink-3">आपको मिलेंगे</div>
+            <div class="num text-[46px] font-bold leading-none mt-1">₹688</div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 py-4 text-center border-b border-sage-200">
+            <div><div class="num text-[24px] font-bold">2.3</div>
+              <div class="font-deva text-[13px] text-ink-3">किमी दूर</div></div>
+            <div><div class="num text-[24px] font-bold">45</div>
+              <div class="font-deva text-[13px] text-ink-3">मिनट का काम</div></div>
+          </div>
+
+          <div class="pt-4 flex items-center gap-2.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5E6B62" stroke-width="2.2" class="shrink-0">
+              <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+            <span class="font-deva text-[15px]">संजौली, सेक्टर 4</span>
+          </div>
+        </div>
+
+        <div class="mx-5 mt-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-deva text-[13px] text-white/70">बचा समय</span>
+            <span class="num text-[15px] font-bold text-ochre-300">0:22</span>
+          </div>
+          <div class="h-2 bg-white/15 rounded-pill overflow-hidden">
+            <div class="h-full bg-ochre-500 rounded-pill" style="width:73%"></div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 inset-x-0 p-5 space-y-3">
+          <button class="w-full bg-green-500 text-white rounded-card py-4 font-deva text-[20px] font-bold">
+            काम स्वीकार करें
+          </button>
+          <button class="w-full border-2 border-white/25 text-white/80 rounded-card py-3 font-deva text-[16px]">
+            नहीं कर सकता
+          </button>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="max-w-[1180px] mx-auto px-6 pb-16">
+  <div class="flex gap-8 flex-wrap">
+
+    <!-- ── 7. WORKER DASHBOARD ── -->
+    <div>
+      <div class="screencap"><b>7 · Worker — home</b> — availability toggle is the only control that matters</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">8:12</span><span class="num">▮▮▮ ⌁ 92%</span></div>
+
+        <div class="px-4 pt-2">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-deva text-[19px] font-bold leading-tight">रमेश कुमार</div>
+              <div class="font-deva text-[12.5px] text-ink-3">बिजली मिस्त्री · सदस्य #1142</div>
+            </div>
+            <div class="relative"><div class="stamp stamp-xs">
+              <span style="font-size:7px">✓</span><span>SHIMLA</span><span>SOCIETY</span></div></div>
+          </div>
+
+          <div class="mt-4 bg-green-600 rounded-card p-4 flex items-center justify-between">
+            <div>
+              <div class="font-deva text-[17px] font-bold text-white">काम के लिए तैयार</div>
+              <div class="font-deva text-[12.5px] text-white/75 mt-0.5">आपको नए काम मिलेंगे</div>
+            </div>
+            <div class="w-14 h-8 bg-white rounded-pill flex items-center justify-end px-1">
+              <div class="w-6 h-6 rounded-pill bg-green-600"></div>
+            </div>
+          </div>
+
+          <div class="mt-4 border border-ink rounded-xs">
+            <div class="px-3 py-2 bg-ink text-white font-deva text-[12.5px] font-bold">आज की कमाई</div>
+            <div class="p-3">
+              <div class="num text-[38px] font-bold leading-none">₹1,376</div>
+              <div class="font-deva text-[12.5px] text-ink-3 mt-1">2 काम पूरे</div>
+              <div class="rule-total mt-3 pt-2 flex items-center justify-between">
+                <span class="font-deva text-[12.5px]">बीमा कोष में आज</span>
+                <span class="num text-[14px] font-bold text-ochre-700">+₹48</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <div class="font-deva text-[13px] font-bold mb-2">इस हफ़्ते</div>
+            <div class="border border-sage-300 rounded-card divide-y divide-sage-200">
+              <div class="flex items-center px-3 py-2.5">
+                <div class="flex-1"><div class="font-deva text-[13px] font-semibold">काम मिले</div></div>
+                <span class="num text-[15px] font-bold">6</span></div>
+              <div class="flex items-center px-3 py-2.5">
+                <div class="flex-1"><div class="font-deva text-[13px] font-semibold">समिति का औसत</div>
+                  <div class="font-deva text-[11px] text-ink-3">आपसे ज़्यादा काम बाकियों को मिले हैं</div></div>
+                <span class="num text-[15px] font-semibold text-ink-3">8</span></div>
+              <div class="flex items-center px-3 py-2.5 bg-green-50">
+                <div class="flex-1"><div class="font-deva text-[13px] font-semibold">इसलिए आपकी बारी पहले</div>
+                  <div class="font-deva text-[11px] text-ink-3">कम काम वालों को प्राथमिकता मिलती है</div></div>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#17624A" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 border border-sage-300 rounded-card p-3 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xs bg-ochre-100 flex items-center justify-center shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#965C10" stroke-width="2.2">
+                <path d="M12 3l7 3v6c0 4.2-2.9 8-7 9-4.1-1-7-4.8-7-9V6l7-3z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="font-deva text-[12.5px] font-bold">बीमा चालू है</div>
+              <div class="font-deva text-[11px] text-ink-3">PMSBY · ₹2,00,000 तक</div>
+            </div>
+            <span class="num text-[13px] font-bold">₹1,464</span>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 inset-x-0 border-t border-sage-300 bg-white grid grid-cols-4 py-2">
+          <div class="flex flex-col items-center gap-0.5 text-green-600">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg>
+            <span class="font-deva text-[10px] font-bold">होम</span></div>
+          <div class="flex flex-col items-center gap-0.5 text-ink-4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 10h8M8 15h5"/></svg>
+            <span class="font-deva text-[10px]">काम</span></div>
+          <div class="flex flex-col items-center gap-0.5 text-ink-4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h18M6 8h12M6 16h12"/></svg>
+            <span class="font-deva text-[10px]">कमाई</span></div>
+          <div class="flex flex-col items-center gap-0.5 text-ink-4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c1.6-4 4.2-6 7.5-6s5.9 2 7.5 6"/></svg>
+            <span class="font-deva text-[10px]">प्रोफ़ाइल</span></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ── 8. WORKER EARNINGS ── -->
+    <div>
+      <div class="screencap"><b>8 · Worker — earnings</b> — the register, not a chart</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">20:40</span><span class="num">▮▮▮ ⌁ 44%</span></div>
+
+        <div class="px-4 pt-2">
+          <div class="font-deva text-[19px] font-bold">कमाई</div>
+          <div class="flex gap-2 mt-3">
+            <button class="flex-1 bg-ink text-white rounded-pill py-1.5 font-deva text-[12.5px] font-bold">इस हफ़्ते</button>
+            <button class="flex-1 border border-sage-300 rounded-pill py-1.5 font-deva text-[12.5px] text-ink-3">महीना</button>
+            <button class="flex-1 border border-sage-300 rounded-pill py-1.5 font-deva text-[12.5px] text-ink-3">सब</button>
+          </div>
+
+          <div class="mt-4 border border-ink rounded-xs p-3">
+            <div class="num text-[40px] font-bold leading-none">₹4,128</div>
+            <div class="font-deva text-[12.5px] text-ink-3 mt-1">6 काम · 2–8 सितंबर</div>
+          </div>
+
+          <div class="mt-4 font-deva text-[13px] font-bold mb-2">काम का ब्यौरा</div>
+
+          <div class="border border-sage-300 rounded-card overflow-hidden">
+            <div class="px-3 py-2.5 border-b border-sage-200">
+              <div class="flex items-baseline justify-between">
+                <span class="font-deva text-[13px] font-semibold">पंखा मरम्मत</span>
+                <span class="num text-[15px] font-bold">₹688</span>
+              </div>
+              <div class="flex items-baseline justify-between mt-0.5">
+                <span class="num text-[11px] text-ink-3">2 सित · 11:07</span>
+                <span class="num text-[11px] text-ink-3">ग्राहक ने ₹800 दिए</span>
+              </div>
+              <div class="split mt-2" style="height:8px;border-width:0">
+                <div style="width:86%;background:#17624A"></div>
+                <div style="width:10%;background:#3E7C9A"></div>
+                <div style="width:3%;background:#C87F1B"></div>
+                <div style="width:1%;background:#A8ADA3"></div>
+              </div>
+              <div class="flex gap-3 mt-1.5 num text-[10.5px] text-ink-3">
+                <span>समिति ₹80</span><span>बीमा ₹24</span><span>प्लेटफ़ॉर्म ₹8</span>
+              </div>
+            </div>
+            <div class="px-3 py-2.5 border-b border-sage-200">
+              <div class="flex items-baseline justify-between">
+                <span class="font-deva text-[13px] font-semibold">स्विच बदलना</span>
+                <span class="num text-[15px] font-bold">₹688</span>
+              </div>
+              <div class="num text-[11px] text-ink-3 mt-0.5">2 सित · 15:20</div>
+            </div>
+            <div class="px-3 py-2.5">
+              <div class="flex items-baseline justify-between">
+                <span class="font-deva text-[13px] font-semibold">वायरिंग जाँच</span>
+                <span class="num text-[15px] font-bold">₹516</span>
+              </div>
+              <div class="num text-[11px] text-ink-3 mt-0.5">4 सित · 10:15</div>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-ochre-50 border border-ochre-300 rounded-card p-3">
+            <div class="flex items-baseline justify-between">
+              <span class="font-deva text-[13px] font-bold">बीमा कोष</span>
+              <span class="num text-[19px] font-bold text-ochre-700">₹1,464</span>
+            </div>
+            <div class="h-2 bg-white rounded-pill mt-2 overflow-hidden border border-ochre-300">
+              <div class="h-full bg-ochre-500" style="width:73%"></div>
+            </div>
+            <p class="font-deva text-[11.5px] text-ink-3 mt-2 leading-snug">
+              हर काम का 3% अपने आप जमा होता है। आपने कुछ नहीं भरा — यह कमाई से ही बनता है।
+            </p>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ── 9. VERIFICATION PENDING (worker) ── -->
+    <div>
+      <div class="screencap"><b>9 · Worker — awaiting verification</b> — an empty state that says who is deciding</div>
+      <div class="phone"><div class="phone-inner">
+        <div class="statusbar"><span class="num">14:03</span><span class="num">▮▮▮ ⌁ 71%</span></div>
+
+        <div class="px-5 pt-10 text-center">
+          <div class="relative inline-block opacity-40">
+            <div class="stamp stamp-lg" style="border-style:dashed">
+              <span style="font-size:11px">प्रतीक्षा</span>
+              <span style="margin-top:2px">SHIMLA LABOUR</span>
+              <span>COOP SOCIETY</span>
+            </div>
+          </div>
+          <div class="font-deva text-[19px] font-bold mt-6">समिति जाँच कर रही है</div>
+          <p class="font-deva text-[14px] text-ink-3 mt-2 leading-relaxed">
+            शिमला श्रमिक सहकारी समिति आपके कागज़ात देख रही है। आमतौर पर 2 दिन लगते हैं।
+          </p>
+        </div>
+
+        <div class="mx-5 mt-7 border border-sage-300 rounded-card divide-y divide-sage-200">
+          <div class="flex items-center gap-3 px-3 py-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#17624A" stroke-width="2.6"><path d="M4 12l5 5L20 6"/></svg>
+            <span class="font-deva text-[13.5px] flex-1">पहचान पत्र</span>
+            <span class="font-deva text-[11.5px] text-green-600 font-semibold">जमा</span>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#17624A" stroke-width="2.6"><path d="M4 12l5 5L20 6"/></svg>
+            <span class="font-deva text-[13.5px] flex-1">सदस्यता प्रमाण</span>
+            <span class="font-deva text-[11.5px] text-green-600 font-semibold">जमा</span>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-3 bg-brick-100/40">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B04A3F" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.01"/></svg>
+            <div class="flex-1">
+              <div class="font-deva text-[13.5px] font-semibold">ITI प्रमाणपत्र</div>
+              <div class="font-deva text-[11px] text-brick-700">धुंधला है — दोबारा भेजें</div>
+            </div>
+            <button class="border border-brick-500 text-brick-700 rounded-xs px-2 py-1 font-deva text-[11.5px] font-bold">बदलें</button>
+          </div>
+        </div>
+
+        <div class="mx-5 mt-4 bg-sage-50 border border-sage-300 rounded-card p-3">
+          <div class="font-deva text-[12.5px] font-bold">सवाल है?</div>
+          <p class="font-deva text-[12px] text-ink-3 mt-1 leading-snug">
+            सुरेश पाटिल · समिति कार्यालय · <span class="num">98XXXXXX40</span>
+          </p>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="border-t border-sage-300"></div>
+
+<!-- ════════════════════════════ SOCIETY ════════════════════════════ -->
+<section class="max-w-[1180px] mx-auto px-6 py-14">
+  <div class="flex items-baseline gap-4 mb-2">
+    <h2 class="text-[28px] font-bold tracking-[-.02em]">Society administration</h2>
+    <span class="text-[13px] text-ink-3">Desktop · sidebar layout</span>
+  </div>
+  <p class="text-[15px] text-ink-3 max-w-[62ch] mb-9 leading-relaxed">
+    Suresh runs a society of two hundred members with two staff and a paper register.
+    These screens have to feel like an upgrade to that register, not a replacement
+    for his judgement.
+  </p>
+
+  <!-- ── 10. VERIFICATION QUEUE ── -->
+  <div class="screencap"><b>10 · Verification queue</b> — the society decides; the software only records it</div>
+  <div class="desk">
+    <div class="flex">
+      <!-- sidebar -->
+      <aside class="w-[196px] bg-green-900 text-white/85 py-4 shrink-0">
+        <div class="px-4 pb-4 border-b border-white/10">
+          <div class="font-bold text-white text-[15px] leading-tight">Sahaayak</div>
+          <div class="text-[11px] text-white/55 mt-0.5 leading-tight">Shimla Labour<br>Cooperative Society</div>
+        </div>
+        <nav class="mt-3 text-[13px]">
+          <div class="px-4 py-2">Overview</div>
+          <div class="px-4 py-2 bg-white/12 text-white font-semibold border-l-2 border-ochre-500 flex items-center justify-between">
+            <span>Verification</span>
+            <span class="num bg-ochre-500 text-white rounded-pill px-1.5 text-[10px] font-bold">3</span>
+          </div>
+          <div class="px-4 py-2">Members</div>
+          <div class="px-4 py-2">Rate card</div>
+          <div class="px-4 py-2">Bookings</div>
+          <div class="px-4 py-2">Analytics</div>
+        </nav>
+        <div class="px-4 mt-6 pt-4 border-t border-white/10 text-[11px] text-white/55 leading-relaxed">
+          Suresh Patil<br>Society Administrator
+        </div>
+      </aside>
+
+      <!-- main -->
+      <div class="flex-1 min-w-0">
+        <div class="px-6 py-4 border-b border-sage-200 flex items-baseline justify-between">
+          <div>
+            <h3 class="text-[19px] font-bold tracking-[-.01em]">Verification queue</h3>
+            <p class="text-[13px] text-ink-3 mt-0.5">3 members awaiting your decision</p>
+          </div>
+          <div class="text-[12px] text-ink-3 num">Avg. turnaround 31 hrs</div>
+        </div>
+
+        <div class="grid grid-cols-[1fr_360px]">
+          <!-- list -->
+          <div class="divide-y divide-sage-200 border-r border-sage-200">
+            <div class="px-6 py-3.5 flex items-center gap-3 bg-green-50 border-l-2 border-green-600">
+              <div class="w-10 h-10 rounded-pill bg-sage-200 flex items-center justify-center font-bold text-[14px]">रा</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-[14px]">Ramesh Kumar</div>
+                <div class="text-[12px] text-ink-3">Electrician · 15 yrs · submitted 2 days ago</div>
+              </div>
+              <span class="text-[11px] font-semibold text-ochre-700 bg-ochre-50 border border-ochre-300 rounded-xs px-1.5 py-0.5">3 docs</span>
+            </div>
+            <div class="px-6 py-3.5 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-pill bg-sage-200 flex items-center justify-center font-bold text-[14px]">अ</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-[14px]">Anita Devi</div>
+                <div class="text-[12px] text-ink-3">Caregiver · 6 yrs · submitted 1 day ago</div>
+              </div>
+              <span class="text-[11px] font-semibold text-ochre-700 bg-ochre-50 border border-ochre-300 rounded-xs px-1.5 py-0.5">3 docs</span>
+            </div>
+            <div class="px-6 py-3.5 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-pill bg-sage-200 flex items-center justify-center font-bold text-[14px]">मो</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-[14px]">Mohan Lal</div>
+                <div class="text-[12px] text-ink-3">Plumber · 9 yrs · submitted 4 hours ago</div>
+              </div>
+              <span class="text-[11px] font-semibold text-brick-700 bg-brick-100 border border-brick-500/40 rounded-xs px-1.5 py-0.5">2 of 3</span>
+            </div>
+            <div class="px-6 py-10 text-center">
+              <div class="text-[13px] text-ink-3">That's the whole queue.</div>
+              <div class="text-[12px] text-ink-4 mt-1">Verified members appear under Members.</div>
+            </div>
+          </div>
+
+          <!-- detail -->
+          <div class="p-5 bg-sage-50">
+            <div class="flex items-start gap-3">
+              <div class="w-14 h-14 rounded-card bg-sage-200 flex items-center justify-center font-bold text-[19px]">रा</div>
+              <div class="flex-1">
+                <div class="font-bold text-[16px] leading-tight">Ramesh Kumar</div>
+                <div class="text-[12.5px] text-ink-3 mt-0.5">Membership #1142 · joined 2011</div>
+                <div class="text-[12.5px] text-ink-3 num">98XXXXXX12 · Sanjauli</div>
+              </div>
+            </div>
+
+            <div class="mt-4 text-[12px] font-bold">Documents</div>
+            <div class="mt-2 space-y-2">
+              <div class="bg-white border border-sage-300 rounded-xs px-3 py-2 flex items-center gap-2.5">
+                <div class="w-8 h-10 bg-sage-100 border border-sage-300 rounded-[2px] shrink-0"></div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[12.5px] font-semibold">Identity proof</div>
+                  <div class="text-[11px] text-ink-3">aadhaar-front.jpg · 1.2 MB</div>
+                </div>
+                <button class="text-[11.5px] font-semibold text-green-600 border border-green-600 rounded-xs px-2 py-1">View</button>
+              </div>
+              <div class="bg-white border border-sage-300 rounded-xs px-3 py-2 flex items-center gap-2.5">
+                <div class="w-8 h-10 bg-sage-100 border border-sage-300 rounded-[2px] shrink-0"></div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[12.5px] font-semibold">Society membership</div>
+                  <div class="text-[11px] text-ink-3">member-card.jpg · 0.8 MB</div>
+                </div>
+                <button class="text-[11.5px] font-semibold text-green-600 border border-green-600 rounded-xs px-2 py-1">View</button>
+              </div>
+              <div class="bg-white border border-sage-300 rounded-xs px-3 py-2 flex items-center gap-2.5">
+                <div class="w-8 h-10 bg-sage-100 border border-sage-300 rounded-[2px] shrink-0"></div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[12.5px] font-semibold">ITI certificate</div>
+                  <div class="text-[11px] text-ink-3">iti-2009.pdf · 2.1 MB</div>
+                </div>
+                <button class="text-[11.5px] font-semibold text-green-600 border border-green-600 rounded-xs px-2 py-1">View</button>
+              </div>
+            </div>
+            <p class="text-[11px] text-ink-4 mt-2 leading-snug">
+              Opening a document creates a signed link valid for 5 minutes. Every view is logged.
+            </p>
+
+            <div class="mt-4 text-[12px] font-bold">Skills to certify</div>
+            <div class="flex flex-wrap gap-1.5 mt-2">
+              <span class="bg-white border border-green-600 text-green-700 rounded-pill px-2.5 py-1 text-[12px] font-semibold">Wiring ✓</span>
+              <span class="bg-white border border-green-600 text-green-700 rounded-pill px-2.5 py-1 text-[12px] font-semibold">Fan repair ✓</span>
+              <span class="bg-white border border-sage-300 text-ink-3 rounded-pill px-2.5 py-1 text-[12px]">Inverter install</span>
+            </div>
+
+            <div class="mt-5 space-y-2">
+              <button class="w-full bg-green-600 text-white rounded-card py-2.5 text-[14px] font-bold">
+                Approve and issue badge
+              </button>
+              <button class="w-full border border-brick-500 text-brick-700 rounded-card py-2 text-[13.5px] font-semibold">
+                Return with a reason
+              </button>
+            </div>
+            <p class="text-[11px] text-ink-4 mt-2 leading-snug">
+              Your name and the time are recorded against this decision.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 11. RATE CARD ── -->
+  <div class="screencap mt-12"><b>11 · Rate card</b> — the society sets the floor wage, and sees the consequence live</div>
+  <div class="desk p-6">
+    <div class="flex items-baseline justify-between mb-1">
+      <h3 class="text-[19px] font-bold tracking-[-.01em]">Rate card — Shimla</h3>
+      <span class="text-[12px] text-ink-3">Federation requires floor wage ≥ 75% of customer price</span>
+    </div>
+    <p class="text-[13px] text-ink-3 mb-5">Changes apply to new bookings only. Bookings already placed keep the price they were quoted.</p>
+
+    <div class="grid grid-cols-[1fr_320px] gap-6">
+      <div class="border border-sage-300 rounded-xs overflow-hidden">
+        <table class="w-full text-[13px]">
+          <thead class="bg-sage-100 text-[12px] text-ink-3">
+            <tr class="text-left">
+              <th class="px-3 py-2 font-semibold">Service</th>
+              <th class="px-3 py-2 font-semibold text-right">Customer pays</th>
+              <th class="px-3 py-2 font-semibold text-right">Floor wage</th>
+              <th class="px-3 py-2 font-semibold text-right">Commission</th>
+              <th class="px-3 py-2 font-semibold text-right">Welfare</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-sage-200">
+            <tr class="bg-green-50">
+              <td class="px-3 py-2.5 font-semibold">Fan repair</td>
+              <td class="px-3 py-2.5 text-right num">
+                <span class="inline-block border-2 border-green-600 rounded-xs px-2 py-0.5 font-bold">₹800</span></td>
+              <td class="px-3 py-2.5 text-right num">
+                <span class="inline-block border-2 border-green-600 rounded-xs px-2 py-0.5 font-bold">₹688</span></td>
+              <td class="px-3 py-2.5 text-right num">10%</td>
+              <td class="px-3 py-2.5 text-right num">3%</td>
+            </tr>
+            <tr><td class="px-3 py-2.5">Wiring inspection</td>
+              <td class="px-3 py-2.5 text-right num">₹600</td><td class="px-3 py-2.5 text-right num">₹516</td>
+              <td class="px-3 py-2.5 text-right num">10%</td><td class="px-3 py-2.5 text-right num">3%</td></tr>
+            <tr><td class="px-3 py-2.5">Tap / leak repair</td>
+              <td class="px-3 py-2.5 text-right num">₹450</td><td class="px-3 py-2.5 text-right num">₹387</td>
+              <td class="px-3 py-2.5 text-right num">10%</td><td class="px-3 py-2.5 text-right num">3%</td></tr>
+            <tr><td class="px-3 py-2.5">Elder care visit</td>
+              <td class="px-3 py-2.5 text-right num">₹500</td><td class="px-3 py-2.5 text-right num">₹440</td>
+              <td class="px-3 py-2.5 text-right num">8%</td><td class="px-3 py-2.5 text-right num">4%</td></tr>
+            <tr><td class="px-3 py-2.5">Deep cleaning</td>
+              <td class="px-3 py-2.5 text-right num">₹1,200</td><td class="px-3 py-2.5 text-right num">₹1,032</td>
+              <td class="px-3 py-2.5 text-right num">10%</td><td class="px-3 py-2.5 text-right num">3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="border border-ink rounded-xs overflow-hidden">
+          <div class="px-3 py-2 bg-ink text-white text-[12px] font-bold">What the customer will see</div>
+          <div class="p-3">
+            <div class="split">
+              <div style="width:86%;background:#17624A">₹688</div>
+              <div style="width:10%;background:#3E7C9A">₹80</div>
+              <div style="width:3%;background:#C87F1B"></div>
+              <div style="width:1%;background:#A8ADA3"></div>
+            </div>
+            <div class="mt-3 space-y-1.5 text-[12.5px]">
+              <div class="flex justify-between"><span>Worker</span><span class="num font-bold">₹688</span></div>
+              <div class="flex justify-between"><span>Society</span><span class="num font-semibold">₹80</span></div>
+              <div class="flex justify-between"><span>Welfare fund</span><span class="num font-semibold">₹24</span></div>
+              <div class="flex justify-between text-ink-3"><span>Platform</span><span class="num">₹8</span></div>
+            </div>
+            <div class="rule-total mt-2.5 pt-1.5 flex justify-between">
+              <span class="text-[13px] font-bold">Customer pays</span>
+              <span class="num text-[16px] font-bold">₹800</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 bg-green-50 border border-green-200 rounded-xs p-3 text-[12.5px] leading-relaxed">
+          Worker keeps <b class="num">86%</b>. A private aggregator on the same job
+          typically returns 70–75% and contributes nothing to insurance.
+        </div>
+
+        <button class="w-full bg-green-600 text-white rounded-card py-2.5 text-[14px] font-bold mt-3">
+          Save rate card
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="border-t border-sage-300"></div>
+
+<!-- ════════════════════════════ FEDERATION ════════════════════════════ -->
+<section class="max-w-[1180px] mx-auto px-6 py-14">
+  <div class="flex items-baseline gap-4 mb-2">
+    <h2 class="text-[28px] font-bold tracking-[-.02em]">Federation</h2>
+    <span class="text-[13px] text-ink-3">Desktop · the screen that turns an app into policy</span>
+  </div>
+  <p class="text-[15px] text-ink-3 max-w-[62ch] mb-9 leading-relaxed">
+    Dr. Rao oversees twenty-five societies and has to justify a training budget upward.
+    The forecast is not a decoration here — it is the argument for where the next
+    batch of workers gets trained.
+  </p>
+
+  <!-- ── 12. INSIGHTS ── -->
+  <div class="screencap"><b>12 · Insights</b> — forecast, staffing gap, training priority, in that order</div>
+  <div class="desk">
+    <div class="px-6 py-4 border-b border-sage-200 flex items-baseline justify-between">
+      <div>
+        <h3 class="text-[19px] font-bold tracking-[-.01em]">Demand and workforce</h3>
+        <p class="text-[13px] text-ink-3 mt-0.5">Himachal Pradesh Labour Cooperative Federation · 25 societies</p>
+      </div>
+      <div class="text-[12px] text-ink-3">
+        Model <span class="num">hw-v3</span> · trained 2 Sep · MAPE <span class="num font-semibold">11.4%</span>
+      </div>
+    </div>
+
+    <div class="p-6 grid grid-cols-[1fr_340px] gap-6">
+      <div>
+        <div class="flex items-baseline justify-between mb-3">
+          <h4 class="text-[14px] font-bold">Next 7 days — bookings forecast</h4>
+          <div class="flex items-center gap-3 text-[11.5px] text-ink-3">
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-ink inline-block"></span>actual</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-green-600 inline-block"></span>forecast</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-2 bg-green-100 inline-block"></span>range</span>
+          </div>
+        </div>
+
+        <svg viewBox="0 0 640 220" class="w-full" style="height:220px">
+          <defs><pattern id="g" width="64" height="44" patternUnits="userSpaceOnUse">
+            <path d="M64 0 L0 0 0 44" fill="none" stroke="#DADFD4" stroke-width="1"/></pattern></defs>
+          <rect x="34" y="6" width="596" height="176" fill="url(#g)"/>
+          <line x1="34" y1="182" x2="630" y2="182" stroke="#14211B" stroke-width="1.5"/>
+          <line x1="34" y1="6" x2="34" y2="182" stroke="#14211B" stroke-width="1.5"/>
+          <!-- y labels -->
+          <text x="28" y="186" text-anchor="end" font-size="10" fill="#5E6B62">0</text>
+          <text x="28" y="142" text-anchor="end" font-size="10" fill="#5E6B62">15</text>
+          <text x="28" y="98" text-anchor="end" font-size="10" fill="#5E6B62">30</text>
+          <text x="28" y="54" text-anchor="end" font-size="10" fill="#5E6B62">45</text>
+          <text x="28" y="14" text-anchor="end" font-size="10" fill="#5E6B62">60</text>
+          <!-- confidence band -->
+          <path d="M354 118 L400 96 L446 88 L492 74 L538 52 L584 66 L630 84
+                   L630 128 L584 108 L538 96 L492 116 L446 128 L400 134 L354 146 Z"
+                fill="#D6E7DE"/>
+          <!-- actual -->
+          <polyline points="34,150 80,138 126,144 172,120 218,108 264,126 310,132 354,132"
+                    fill="none" stroke="#14211B" stroke-width="2"/>
+          <!-- forecast -->
+          <polyline points="354,132 400,115 446,108 492,95 538,74 584,87 630,106"
+                    fill="none" stroke="#17624A" stroke-width="2.5" stroke-dasharray="6 4"/>
+          <line x1="354" y1="6" x2="354" y2="182" stroke="#C87F1B" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text x="358" y="18" font-size="10" font-weight="700" fill="#965C10">today</text>
+          <!-- points -->
+          <circle cx="538" cy="74" r="4" fill="#17624A"/>
+          <text x="538" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#17624A">54</text>
+          <!-- x labels -->
+          <text x="34"  y="200" font-size="10" fill="#5E6B62" text-anchor="middle">Aug 27</text>
+          <text x="172" y="200" font-size="10" fill="#5E6B62" text-anchor="middle">Aug 30</text>
+          <text x="310" y="200" font-size="10" fill="#5E6B62" text-anchor="middle">Sep 2</text>
+          <text x="446" y="200" font-size="10" fill="#5E6B62" text-anchor="middle">Sep 5</text>
+          <text x="584" y="200" font-size="10" fill="#5E6B62" text-anchor="middle">Sep 8</text>
+          <text x="538" y="214" font-size="10" font-weight="700" fill="#965C10" text-anchor="middle">Sat peak</text>
+        </svg>
+
+        <h4 class="text-[14px] font-bold mt-6 mb-2">Staffing gap by service — Shimla</h4>
+        <div class="border border-sage-300 rounded-xs overflow-hidden">
+          <table class="w-full text-[13px]">
+            <thead class="bg-sage-100 text-[12px] text-ink-3 text-left">
+              <tr>
+                <th class="px-3 py-2 font-semibold">Service</th>
+                <th class="px-3 py-2 font-semibold text-right">Forecast jobs</th>
+                <th class="px-3 py-2 font-semibold text-right">Workers needed</th>
+                <th class="px-3 py-2 font-semibold text-right">Available</th>
+                <th class="px-3 py-2 font-semibold text-right">Gap</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-sage-200">
+              <tr class="bg-brick-100/45">
+                <td class="px-3 py-2.5 font-semibold">Plumbing</td>
+                <td class="px-3 py-2.5 text-right num">42</td><td class="px-3 py-2.5 text-right num">7</td>
+                <td class="px-3 py-2.5 text-right num">4</td>
+                <td class="px-3 py-2.5 text-right num font-bold text-brick-700">−3</td></tr>
+              <tr class="bg-brick-100/45">
+                <td class="px-3 py-2.5 font-semibold">Elder care</td>
+                <td class="px-3 py-2.5 text-right num">18</td><td class="px-3 py-2.5 text-right num">4</td>
+                <td class="px-3 py-2.5 text-right num">1</td>
+                <td class="px-3 py-2.5 text-right num font-bold text-brick-700">−3</td></tr>
+              <tr><td class="px-3 py-2.5">Deep cleaning</td>
+                <td class="px-3 py-2.5 text-right num">26</td><td class="px-3 py-2.5 text-right num">5</td>
+                <td class="px-3 py-2.5 text-right num">5</td>
+                <td class="px-3 py-2.5 text-right num text-ink-3">0</td></tr>
+              <tr><td class="px-3 py-2.5">Electrical</td>
+                <td class="px-3 py-2.5 text-right num">31</td><td class="px-3 py-2.5 text-right num">5</td>
+                <td class="px-3 py-2.5 text-right num">9</td>
+                <td class="px-3 py-2.5 text-right num text-green-600 font-semibold">+4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <div class="border border-ink rounded-xs overflow-hidden">
+          <div class="px-3 py-2 bg-ink text-white text-[12px] font-bold">Train these skills next</div>
+          <div class="p-3 space-y-3">
+            <div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-[13.5px] font-bold">Elder care</span>
+                <span class="num text-[12px] text-ink-3">Shimla, Solan</span>
+              </div>
+              <div class="h-1.5 bg-sage-200 rounded-pill mt-1.5 overflow-hidden">
+                <div class="h-full bg-ochre-500" style="width:100%"></div></div>
+              <p class="text-[11.5px] text-ink-3 mt-1.5 leading-snug">
+                Highest unmet demand and the highest value per job. 17 requests went unfilled last month.
+              </p>
+            </div>
+            <div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-[13.5px] font-bold">Plumbing</span>
+                <span class="num text-[12px] text-ink-3">Shimla</span>
+              </div>
+              <div class="h-1.5 bg-sage-200 rounded-pill mt-1.5 overflow-hidden">
+                <div class="h-full bg-ochre-500" style="width:74%"></div></div>
+              <p class="text-[11.5px] text-ink-3 mt-1.5 leading-snug">
+                Steady shortfall through the monsoon months.
+              </p>
+            </div>
+            <div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-[13.5px] font-bold">Inverter installation</span>
+                <span class="num text-[12px] text-ink-3">Federation-wide</span>
+              </div>
+              <div class="h-1.5 bg-sage-200 rounded-pill mt-1.5 overflow-hidden">
+                <div class="h-full bg-ochre-500" style="width:52%"></div></div>
+              <p class="text-[11.5px] text-ink-3 mt-1.5 leading-snug">
+                An upskill for the 9 surplus electricians rather than new recruitment.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 border border-sage-300 rounded-xs divide-y divide-sage-200">
+          <div class="px-3 py-2.5 flex items-baseline justify-between">
+            <span class="text-[12.5px]">Welfare pool this month</span>
+            <span class="num text-[15px] font-bold">₹2,41,880</span></div>
+          <div class="px-3 py-2.5 flex items-baseline justify-between">
+            <span class="text-[12.5px]">Workers with active cover</span>
+            <span class="num text-[15px] font-bold">94%</span></div>
+          <div class="px-3 py-2.5 flex items-baseline justify-between">
+            <span class="text-[12.5px]">Median jobs per member</span>
+            <span class="num text-[15px] font-bold">7.4</span></div>
+          <div class="px-3 py-2.5 flex items-baseline justify-between">
+            <span class="text-[12.5px]">Job distribution (Gini)</span>
+            <span class="num text-[15px] font-bold text-green-600">0.24</span></div>
+        </div>
+        <p class="text-[11px] text-ink-4 mt-2 leading-snug">
+          Gini below 0.30 means work is spread reasonably evenly across members —
+          the fairness target the allocation function is tuned against.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 13. SCORE BREAKDOWN ── -->
+  <div class="screencap mt-12"><b>13 · Why this worker</b> — the audit view; the demo's strongest 20 seconds</div>
+  <div class="desk p-6">
+    <div class="flex items-baseline justify-between mb-1">
+      <h3 class="text-[19px] font-bold tracking-[-.01em]">Booking SHY-2026-000418</h3>
+      <span class="num text-[12px] text-ink-3">Emergency · dispatched 09:43:02 · accepted 09:43:24</span>
+    </div>
+    <p class="text-[13px] text-ink-3 mb-5 max-w-[70ch]">
+      Five workers were offered this job in parallel. Ramesh accepted first. This is the
+      score that put him at the top of the list, and every component of it is stored
+      with the booking.
+    </p>
+
+    <div class="grid grid-cols-[1fr_300px] gap-6">
+      <div class="border border-sage-300 rounded-xs overflow-hidden">
+        <table class="w-full text-[13px]">
+          <thead class="bg-sage-100 text-[12px] text-ink-3 text-left">
+            <tr>
+              <th class="px-3 py-2 font-semibold">Member</th>
+              <th class="px-3 py-2 font-semibold text-right">Proximity<br><span class="font-normal num">×0.60</span></th>
+              <th class="px-3 py-2 font-semibold text-right">Skill<br><span class="font-normal num">×0.10</span></th>
+              <th class="px-3 py-2 font-semibold text-right">Fairness<br><span class="font-normal num">×0.10</span></th>
+              <th class="px-3 py-2 font-semibold text-right">Rating<br><span class="font-normal num">×0.10</span></th>
+              <th class="px-3 py-2 font-semibold text-right">Reliability<br><span class="font-normal num">×0.10</span></th>
+              <th class="px-3 py-2 font-semibold text-right">Score</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-sage-200 num">
+            <tr class="bg-green-50">
+              <td class="px-3 py-2.5 font-semibold">Ramesh Kumar <span class="text-[11px] text-green-600 font-bold">accepted</span></td>
+              <td class="px-3 py-2.5 text-right">0.847</td><td class="px-3 py-2.5 text-right">0.860</td>
+              <td class="px-3 py-2.5 text-right font-bold text-ochre-700">0.750</td>
+              <td class="px-3 py-2.5 text-right">0.960</td><td class="px-3 py-2.5 text-right">0.940</td>
+              <td class="px-3 py-2.5 text-right font-bold">0.867</td></tr>
+            <tr>
+              <td class="px-3 py-2.5">Sunita Devi</td>
+              <td class="px-3 py-2.5 text-right">0.793</td><td class="px-3 py-2.5 text-right">0.720</td>
+              <td class="px-3 py-2.5 text-right">0.250</td>
+              <td class="px-3 py-2.5 text-right">0.920</td><td class="px-3 py-2.5 text-right">0.980</td>
+              <td class="px-3 py-2.5 text-right font-semibold">0.763</td></tr>
+            <tr>
+              <td class="px-3 py-2.5">Deepak Thakur</td>
+              <td class="px-3 py-2.5 text-right">0.640</td><td class="px-3 py-2.5 text-right">0.940</td>
+              <td class="px-3 py-2.5 text-right">0.125</td>
+              <td class="px-3 py-2.5 text-right">0.980</td><td class="px-3 py-2.5 text-right">0.900</td>
+              <td class="px-3 py-2.5 text-right font-semibold">0.679</td></tr>
+            <tr class="text-ink-3">
+              <td class="px-3 py-2.5">Kailash Negi <span class="text-[11px]">new member</span></td>
+              <td class="px-3 py-2.5 text-right">0.512</td><td class="px-3 py-2.5 text-right">0.600</td>
+              <td class="px-3 py-2.5 text-right">1.000</td>
+              <td class="px-3 py-2.5 text-right">0.700</td><td class="px-3 py-2.5 text-right">1.000</td>
+              <td class="px-3 py-2.5 text-right font-semibold">0.637</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="bg-ochre-50 border border-ochre-300 rounded-xs p-4">
+          <div class="text-[13px] font-bold mb-2">Read this column</div>
+          <p class="text-[12.5px] leading-relaxed text-ink-2">
+            Ramesh took <b class="num">6</b> jobs last week against a society average of
+            <b class="num">8</b>, so his fairness component is high. Deepak is the
+            highest-rated and best-skilled member on this list — and still ranked third,
+            because he had already worked <b class="num">14</b> jobs.
+          </p>
+          <p class="text-[12.5px] leading-relaxed text-ink-2 mt-3">
+            Kailash has no ratings yet and is given a neutral <b class="num">0.70</b>
+            rather than zero, so new members are not locked out of work permanently.
+          </p>
+        </div>
+
+        <div class="mt-4 border border-sage-300 rounded-xs p-4">
+          <div class="text-[13px] font-bold mb-1.5">Emergency weighting</div>
+          <p class="text-[12.5px] leading-relaxed text-ink-3">
+            On an emergency, proximity carries 60% because arriving fast is the service.
+            On a scheduled booking the weights shift: proximity 35%, skill 25%,
+            fairness 20%.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ NOTES ════════════════════════════ -->
+<footer class="border-t border-sage-300">
+  <div class="max-w-[1180px] mx-auto px-6 py-14">
+    <h2 class="text-[22px] font-bold tracking-[-.02em] mb-6">Implementation notes</h2>
+    <div class="grid md:grid-cols-3 gap-6 text-[13.5px] leading-relaxed">
+      <div>
+        <div class="font-bold mb-2">The stamp</div>
+        <p class="text-ink-3">A circular double-ruled outline rotated −9°, at 92% opacity so it
+        sits like ink on paper rather than a UI chip. Three sizes: 52px inline, 74px on a
+        worker card, 104px on a profile. The pending state uses a dashed border and 40% opacity —
+        an unstamped register entry.</p>
+      </div>
+      <div>
+        <div class="font-bold mb-2">The split bar</div>
+        <p class="text-ink-3">Widths are proportional but the two smallest segments are given a
+        1px minimum so they never disappear. Amounts print inside a segment only above 8% width;
+        below that they move to the legend. Colours are fixed per destination and never reused
+        elsewhere in the interface.</p>
+      </div>
+      <div>
+        <div class="font-bold mb-2">Two type scales</div>
+        <p class="text-ink-3">Customer and admin screens use a 13/15/19px scale. Worker screens
+        step up to 15/17/20px with heavier weights and higher contrast — they are read outdoors,
+        in daylight, often quickly. Same components, different scale token.</p>
+      </div>
+      <div>
+        <div class="font-bold mb-2">Hindi first</div>
+        <p class="text-ink-3">Every screen here is drawn in Hindi because that is the default
+        for both customer and worker. Devanagari runs 20–30% longer than Latin, so buttons wrap
+        to two lines rather than truncating, and no fixed-width container holds translated text.</p>
+      </div>
+      <div>
+        <div class="font-bold mb-2">Motion</div>
+        <p class="text-ink-3">One animation in the entire product: the search radar while
+        matching, because a wait needs to show the system is working. Everything else responds
+        only to a tap. No card hover lifts, no scroll reveals.</p>
+      </div>
+      <div>
+        <div class="font-bold mb-2">Emergency ochre</div>
+        <p class="text-ink-3">Ochre appears in exactly three places: the emergency entry point,
+        the countdown, and the welfare fund. It is never used for a general accent, so when a
+        user sees it they know something is either urgent or about their money.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-sage-300 text-[12px] text-ink-4">
+      Sahaayak · SIH 2026 · PS 26089 — screens drawn against docs/PRD.md §15 and
+      docs/ARCHITECTURE-V2.md §3.1
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
