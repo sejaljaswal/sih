@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sahaayak
 
-## Getting Started
+A cooperative-owned digital marketplace for household and community services,
+built for Smart India Hackathon 2026 (PS 26089, Ministry of Cooperation / NCCT).
+Labour Cooperative Societies verify and register their own skilled workers;
+households book them; payment splits automatically into worker wage, society
+commission and a welfare contribution.
 
-First, run the development server:
+See [`CLAUDE.md`](./CLAUDE.md) for full project context, conventions and
+non-negotiable rules. Full specs live in [`docs/PRD.md`](./docs/PRD.md) and
+[`docs/ARCHITECTURE-V2.md`](./docs/ARCHITECTURE-V2.md); the visual system is
+in [`design/DESIGN.md`](./design/DESIGN.md) (reference mockup:
+[`design/sahaayak-ui.html`](./design/sahaayak-ui.html)).
+
+## Stack
+
+Next.js 15 (App Router) · React 19 · TypeScript · TailwindCSS · shadcn/ui ·
+Supabase (Postgres + PostGIS, Auth, Storage, Realtime) · next-intl (en/hi/pa) ·
+react-hook-form + zod · Razorpay test mode.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.local.example .env.local   # fill in a real Supabase project's keys
+npm run dev                        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx supabase start                                              # local Postgres via Docker
+npx supabase db push                                             # apply migrations
+npx supabase gen types typescript --local > lib/types/database.ts
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Migrations live in `supabase/migrations/`; every table is default-deny RLS.
+`supabase/tests/rls_role_isolation.sql` is a standalone role-isolation test —
+run it against any Supabase Postgres connection with
+`psql <connection> -v ON_ERROR_STOP=1 -f supabase/tests/rls_role_isolation.sql`.
 
-## Learn More
+## Commands
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev          # start the dev server
+npm run build         # production build — run before pushing
+npm run lint           # eslint
+npm run typecheck      # tsc --noEmit
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Status
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Scaffold, database schema, RLS, phone-styled auth, and the full visual system
+(all 13 reference screens) are in place. See `CLAUDE.md`'s build order for
+what's next — booking flow, matching, payments, and dashboards are still
+placeholder/demo data pending their own build steps.
