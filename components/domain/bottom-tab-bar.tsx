@@ -1,13 +1,15 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
+import { Briefcase, ClipboardList, Home, User, Wallet } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+
+const ICONS = { Briefcase, ClipboardList, Home, User, Wallet } as const;
 
 export type TabItem = {
   href: string;
   label: string;
-  icon: LucideIcon;
+  icon: keyof typeof ICONS;
 };
 
 /**
@@ -25,7 +27,7 @@ export function BottomTabBar({ items }: { items: TabItem[] }) {
     >
       {items.map((item) => {
         const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
-        const Icon = item.icon;
+        const Icon = ICONS[item.icon];
         return (
           <Link
             key={item.href}

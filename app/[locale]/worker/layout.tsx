@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import { Home, Briefcase, Wallet, User } from "lucide-react";
 import { BottomTabBar } from "@/components/domain/bottom-tab-bar";
 
 export default function WorkerLayout({ children }: { children: React.ReactNode }) {
@@ -10,10 +9,10 @@ export default function WorkerLayout({ children }: { children: React.ReactNode }
       <div className="flex-1">{children}</div>
       <BottomTabBar
         items={[
-          { href: "/worker/dashboard", label: t("home"), icon: Home },
-          { href: "/worker/offers", label: t("jobs"), icon: Briefcase },
-          { href: "/worker/earnings", label: t("earnings"), icon: Wallet },
-          { href: "/worker/profile", label: t("profile"), icon: User },
+          { href: "/worker/dashboard", label: t("home"), icon: "Home" },
+          { href: "/worker/offers", label: t("jobs"), icon: "Briefcase" },
+          { href: "/worker/earnings", label: t("earnings"), icon: "Wallet" },
+          { href: "/worker/profile", label: t("profile"), icon: "User" },
         ]}
       />
     </div>

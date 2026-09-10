@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import { Home, ClipboardList, User } from "lucide-react";
 import { BottomTabBar } from "@/components/domain/bottom-tab-bar";
 
 export default function CustomerLayout({ children }: { children: React.ReactNode }) {
@@ -10,9 +9,9 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
       <div className="flex-1">{children}</div>
       <BottomTabBar
         items={[
-          { href: "/customer/home", label: t("home"), icon: Home },
-          { href: "/customer/bookings", label: t("bookings"), icon: ClipboardList },
-          { href: "/customer/profile", label: t("profile"), icon: User },
+          { href: "/customer/home", label: t("home"), icon: "Home" },
+          { href: "/customer/bookings", label: t("bookings"), icon: "ClipboardList" },
+          { href: "/customer/profile", label: t("profile"), icon: "User" },
         ]}
       />
     </div>
