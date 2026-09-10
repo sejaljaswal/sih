@@ -135,6 +135,38 @@
       "summaryNote": "{societyAmount} शिमला में ही रहा। {welfareAmount} {name} के बीमा कोष में गया — जो अब {welfareTotal} हो चुका है।",
       "receipt": "रसीद",
       "rate": "रेटिंग दें"
+    },
+    "bookings": {
+      "heading": "आपकी बुकिंग",
+      "emptyTitle": "अभी कोई बुकिंग नहीं।",
+      "emptyBody": "होम से कोई सेवा बुक करें, वह यहाँ दिखेगी।",
+      "noWorkerYet": "कारीगर ढूँढा जा रहा है…",
+      "services": {
+        "fan_repair": "पंखा मरम्मत",
+        "tap_repair": "नल मरम्मत",
+        "home_cleaning": "घर की सफ़ाई",
+        "furniture_repair": "फ़र्नीचर मरम्मत",
+        "elder_care": "बुज़ुर्ग देखभाल",
+        "wall_painting": "दीवार रंगाई",
+        "unknown": "सेवा"
+      },
+      "bookingStatus": {
+        "REQUESTED": "अनुरोधित",
+        "ASSIGNED": "सौंपा गया",
+        "EN_ROUTE": "रास्ते में",
+        "ARRIVED": "पहुँच गया",
+        "IN_PROGRESS": "जारी है",
+        "COMPLETED": "पूर्ण",
+        "PAID": "भुगतान हुआ",
+        "CANCELLED": "रद्द",
+        "UNFULFILLED": "अधूरा"
+      }
+    },
+    "profile": {
+      "addressesHeading": "आपके पते",
+      "noAddresses": "अभी कोई पता सहेजा नहीं गया।",
+      "default": "डिफ़ॉल्ट",
+      "logout": "लॉग आउट"
     }
   },
   "worker": {
@@ -190,6 +222,30 @@
       "resend": "बदलें",
       "questionsHeading": "सवाल है?",
       "questionsBody": "{name} · समिति कार्यालय · {phone}"
+    },
+    "jobDetail": {
+      "statusHeading": "काम की स्थिति",
+      "startOtp": "शुरू OTP",
+      "services": {
+        "fan_repair": "पंखा मरम्मत",
+        "tap_repair": "नल मरम्मत",
+        "home_cleaning": "घर की सफ़ाई",
+        "furniture_repair": "फ़र्नीचर मरम्मत",
+        "elder_care": "बुज़ुर्ग देखभाल",
+        "wall_painting": "दीवार रंगाई",
+        "unknown": "सेवा"
+      },
+      "bookingStatus": {
+        "REQUESTED": "अनुरोधित",
+        "ASSIGNED": "सौंपा गया",
+        "EN_ROUTE": "रास्ते में",
+        "ARRIVED": "पहुँच गया",
+        "IN_PROGRESS": "जारी है",
+        "COMPLETED": "पूर्ण",
+        "PAID": "भुगतान हुआ",
+        "CANCELLED": "रद्द",
+        "UNFULFILLED": "अधूरा"
+      }
     }
   },
   "society": {
@@ -226,6 +282,86 @@
       "platform": "प्लेटफ़ॉर्म",
       "workerKeepsNote": "कारीगर को {pct} मिलता है। निजी कंपनी आमतौर पर 70–75% देती है और बीमा में कुछ नहीं जोड़ती।",
       "save": "रेट कार्ड सहेजें"
+    },
+    "overview": {
+      "heading": "{society}",
+      "subtitle": "आपकी सोसाइटी में {count} सदस्य",
+      "verifiedWorkers": "सत्यापित कारीगर",
+      "pendingVerification": "सत्यापन लंबित",
+      "activeBookings": "सक्रिय बुकिंग",
+      "jobsThisWeek": "इस सप्ताह के काम",
+      "revenueHeading": "राजस्व — पिछले 7 दिन",
+      "revenueSubtitle": "आपकी सोसाइटी की सभी सेवाओं में"
+    },
+    "workers": {
+      "heading": "सदस्य",
+      "subtitle": "{count} पंजीकृत कारीगर",
+      "name": "नाम",
+      "membershipNo": "सदस्यता नंबर",
+      "status": "स्थिति",
+      "rating": "रेटिंग",
+      "jobsCompleted": "काम",
+      "available": "उपलब्ध",
+      "yes": "हाँ",
+      "no": "नहीं",
+      "verificationStatus": {
+        "PENDING": "लंबित",
+        "UNDER_REVIEW": "समीक्षा में",
+        "VERIFIED": "सत्यापित",
+        "REJECTED": "अस्वीकृत",
+        "SUSPENDED": "निलंबित"
+      }
+    },
+    "bookingsList": {
+      "heading": "बुकिंग",
+      "subtitle": "आपकी सोसाइटी में {count} बुकिंग",
+      "code": "कोड",
+      "service": "सेवा",
+      "customer": "ग्राहक",
+      "worker": "कारीगर",
+      "amount": "राशि",
+      "services": {
+        "fan_repair": "पंखा मरम्मत",
+        "tap_repair": "नल मरम्मत",
+        "home_cleaning": "घर की सफ़ाई",
+        "furniture_repair": "फ़र्नीचर मरम्मत",
+        "elder_care": "बुज़ुर्ग देखभाल",
+        "wall_painting": "दीवार रंगाई",
+        "unknown": "सेवा"
+      },
+      "bookingStatus": {
+        "REQUESTED": "अनुरोधित",
+        "ASSIGNED": "सौंपा गया",
+        "EN_ROUTE": "रास्ते में",
+        "ARRIVED": "पहुँच गया",
+        "IN_PROGRESS": "जारी है",
+        "COMPLETED": "पूर्ण",
+        "PAID": "भुगतान हुआ",
+        "CANCELLED": "रद्द",
+        "UNFULFILLED": "अधूरा"
+      },
+      "status": "स्थिति"
+    },
+    "analytics": {
+      "heading": "विश्लेषण",
+      "subtitle": "मांग और राजस्व, पिछले 7 दिन",
+      "revenue7d": "राजस्व (7d)",
+      "bookings7d": "बुकिंग (7d)",
+      "fulfillmentRate": "पूर्ति दर",
+      "service": "सेवा",
+      "requested": "अनुरोधित",
+      "fulfilled": "पूर्ण",
+      "unfulfilled": "अधूरा",
+      "revenue": "राजस्व",
+      "services": {
+        "fan_repair": "पंखा मरम्मत",
+        "tap_repair": "नल मरम्मत",
+        "home_cleaning": "घर की सफ़ाई",
+        "furniture_repair": "फ़र्नीचर मरम्मत",
+        "elder_care": "बुज़ुर्ग देखभाल",
+        "wall_painting": "दीवार रंगाई",
+        "unknown": "सेवा"
+      }
     }
   },
   "federation": {
@@ -269,6 +405,38 @@
       "readColumnBody2": "कैलाश की अभी कोई रेटिंग नहीं है, इसलिए उन्हें शून्य के बजाय तटस्थ 0.70 दिया गया है, ताकि नए सदस्य हमेशा के लिए काम से वंचित न रहें।",
       "weightingHeading": "आपातकालीन भारांक",
       "weightingBody": "आपात स्थिति में निकटता 60% रखती है क्योंकि जल्दी पहुँचना ही सेवा है। तय बुकिंग में भार बदलता है: निकटता 35%, कौशल 25%, निष्पक्षता 20%।"
+    },
+    "overview": {
+      "heading": "{federation}",
+      "subtitle": "फ़ेडरेशन-व्यापी सारांश",
+      "societies": "सोसाइटियाँ",
+      "workers": "कारीगर",
+      "jobsThisWeek": "इस सप्ताह के काम",
+      "revenueThisWeek": "इस सप्ताह का राजस्व",
+      "societiesHeading": "सोसाइटियाँ",
+      "workerCount": "{count} कारीगर"
+    },
+    "societiesList": {
+      "heading": "सोसाइटियाँ",
+      "subtitle": "{count} सदस्य सोसाइटियाँ",
+      "name": "नाम",
+      "district": "ज़िला",
+      "registrationNo": "पंजीकरण नंबर",
+      "verifiedWorkers": "सत्यापित",
+      "totalWorkers": "कुल कारीगर"
+    },
+    "heatmap": {
+      "heading": "सोसाइटी अनुसार मांग",
+      "subtitle": "बुकिंग अनुरोध, पिछले 7 दिन",
+      "requestsCount": "{count} अनुरोध"
+    },
+    "welfare": {
+      "heading": "कल्याण कोष",
+      "subtitle": "पूरे फ़ेडरेशन में जमा योगदान",
+      "fundHeading": "कुल जमा",
+      "fundSubtitle": "{count} योगदान",
+      "recentHeading": "हाल के योगदान",
+      "empty": "अभी कोई योगदान नहीं।"
     }
   },
   "landing": {

@@ -135,6 +135,38 @@
       "summaryNote": "{societyAmount} ਸ਼ਿਮਲਾ ਵਿੱਚ ਹੀ ਰਿਹਾ। {welfareAmount} {name} ਦੇ ਬੀਮਾ ਫੰਡ ਵਿੱਚ ਗਿਆ — ਜੋ ਹੁਣ {welfareTotal} ਹੋ ਚੁੱਕਾ ਹੈ।",
       "receipt": "ਰਸੀਦ",
       "rate": "ਰੇਟਿੰਗ ਦਿਓ"
+    },
+    "bookings": {
+      "heading": "ਤੁਹਾਡੀਆਂ ਬੁਕਿੰਗਾਂ",
+      "emptyTitle": "ਹਾਲੇ ਕੋਈ ਬੁਕਿੰਗ ਨਹੀਂ।",
+      "emptyBody": "ਹੋਮ ਤੋਂ ਸੇਵਾ ਬੁੱਕ ਕਰੋ, ਇਹ ਇੱਥੇ ਦਿਖੇਗੀ।",
+      "noWorkerYet": "ਕਾਰੀਗਰ ਲੱਭਿਆ ਜਾ ਰਿਹਾ ਹੈ…",
+      "services": {
+        "fan_repair": "ਪੱਖਾ ਮੁਰੰਮਤ",
+        "tap_repair": "ਟੂਟੀ ਮੁਰੰਮਤ",
+        "home_cleaning": "ਘਰ ਦੀ ਸਫ਼ਾਈ",
+        "furniture_repair": "ਫਰਨੀਚਰ ਮੁਰੰਮਤ",
+        "elder_care": "ਬਜ਼ੁਰਗ ਦੇਖਭਾਲ",
+        "wall_painting": "ਕੰਧ ਪੇਂਟਿੰਗ",
+        "unknown": "ਸੇਵਾ"
+      },
+      "bookingStatus": {
+        "REQUESTED": "ਬੇਨਤੀ ਕੀਤੀ",
+        "ASSIGNED": "ਸੌਂਪਿਆ",
+        "EN_ROUTE": "ਰਸਤੇ ਵਿੱਚ",
+        "ARRIVED": "ਪਹੁੰਚ ਗਿਆ",
+        "IN_PROGRESS": "ਜਾਰੀ",
+        "COMPLETED": "ਪੂਰਾ",
+        "PAID": "ਭੁਗਤਾਨ ਹੋਇਆ",
+        "CANCELLED": "ਰੱਦ",
+        "UNFULFILLED": "ਅਧੂਰਾ"
+      }
+    },
+    "profile": {
+      "addressesHeading": "ਤੁਹਾਡੇ ਪਤੇ",
+      "noAddresses": "ਹਾਲੇ ਕੋਈ ਪਤਾ ਸੇਵ ਨਹੀਂ ਹੋਇਆ।",
+      "default": "ਡਿਫੌਲਟ",
+      "logout": "ਲੌਗ ਆਊਟ"
     }
   },
   "worker": {
@@ -190,6 +222,30 @@
       "resend": "ਬਦਲੋ",
       "questionsHeading": "ਸਵਾਲ ਹੈ?",
       "questionsBody": "{name} · ਸੁਸਾਇਟੀ ਦਫ਼ਤਰ · {phone}"
+    },
+    "jobDetail": {
+      "statusHeading": "ਕੰਮ ਦੀ ਸਥਿਤੀ",
+      "startOtp": "ਸ਼ੁਰੂ OTP",
+      "services": {
+        "fan_repair": "ਪੱਖਾ ਮੁਰੰਮਤ",
+        "tap_repair": "ਟੂਟੀ ਮੁਰੰਮਤ",
+        "home_cleaning": "ਘਰ ਦੀ ਸਫ਼ਾਈ",
+        "furniture_repair": "ਫਰਨੀਚਰ ਮੁਰੰਮਤ",
+        "elder_care": "ਬਜ਼ੁਰਗ ਦੇਖਭਾਲ",
+        "wall_painting": "ਕੰਧ ਪੇਂਟਿੰਗ",
+        "unknown": "ਸੇਵਾ"
+      },
+      "bookingStatus": {
+        "REQUESTED": "ਬੇਨਤੀ ਕੀਤੀ",
+        "ASSIGNED": "ਸੌਂਪਿਆ",
+        "EN_ROUTE": "ਰਸਤੇ ਵਿੱਚ",
+        "ARRIVED": "ਪਹੁੰਚ ਗਿਆ",
+        "IN_PROGRESS": "ਜਾਰੀ",
+        "COMPLETED": "ਪੂਰਾ",
+        "PAID": "ਭੁਗਤਾਨ ਹੋਇਆ",
+        "CANCELLED": "ਰੱਦ",
+        "UNFULFILLED": "ਅਧੂਰਾ"
+      }
     }
   },
   "society": {
@@ -226,6 +282,86 @@
       "platform": "ਪਲੇਟਫ਼ਾਰਮ",
       "workerKeepsNote": "ਕਾਮੇ ਨੂੰ {pct} ਮਿਲਦਾ ਹੈ। ਨਿੱਜੀ ਕੰਪਨੀ ਆਮ ਤੌਰ 'ਤੇ 70–75% ਦਿੰਦੀ ਹੈ ਅਤੇ ਬੀਮੇ ਵਿੱਚ ਕੁਝ ਨਹੀਂ ਜੋੜਦੀ।",
       "save": "ਰੇਟ ਕਾਰਡ ਸੰਭਾਲੋ"
+    },
+    "overview": {
+      "heading": "{society}",
+      "subtitle": "ਤੁਹਾਡੀ ਸੋਸਾਇਟੀ ਵਿੱਚ {count} ਮੈਂਬਰ",
+      "verifiedWorkers": "ਪ੍ਰਮਾਣਿਤ ਕਾਰੀਗਰ",
+      "pendingVerification": "ਸਤਿਆਪਨ ਬਕਾਇਆ",
+      "activeBookings": "ਸਰਗਰਮ ਬੁਕਿੰਗਾਂ",
+      "jobsThisWeek": "ਇਸ ਹਫ਼ਤੇ ਦੇ ਕੰਮ",
+      "revenueHeading": "ਆਮਦਨ — ਪਿਛਲੇ 7 ਦਿਨ",
+      "revenueSubtitle": "ਤੁਹਾਡੀ ਸੋਸਾਇਟੀ ਦੀਆਂ ਸਾਰੀਆਂ ਸੇਵਾਵਾਂ ਵਿੱਚ"
+    },
+    "workers": {
+      "heading": "ਮੈਂਬਰ",
+      "subtitle": "{count} ਰਜਿਸਟਰਡ ਕਾਰੀਗਰ",
+      "name": "ਨਾਮ",
+      "membershipNo": "ਮੈਂਬਰਸ਼ਿਪ ਨੰ.",
+      "status": "ਸਥਿਤੀ",
+      "rating": "ਰੇਟਿੰਗ",
+      "jobsCompleted": "ਕੰਮ",
+      "available": "ਉਪਲਬਧ",
+      "yes": "ਹਾਂ",
+      "no": "ਨਹੀਂ",
+      "verificationStatus": {
+        "PENDING": "ਬਕਾਇਆ",
+        "UNDER_REVIEW": "ਸਮੀਖਿਆ ਅਧੀਨ",
+        "VERIFIED": "ਪ੍ਰਮਾਣਿਤ",
+        "REJECTED": "ਰੱਦ ਕੀਤਾ",
+        "SUSPENDED": "ਮੁਅੱਤਲ"
+      }
+    },
+    "bookingsList": {
+      "heading": "ਬੁਕਿੰਗਾਂ",
+      "subtitle": "ਤੁਹਾਡੀ ਸੋਸਾਇਟੀ ਵਿੱਚ {count} ਬੁਕਿੰਗਾਂ",
+      "code": "ਕੋਡ",
+      "service": "ਸੇਵਾ",
+      "customer": "ਗਾਹਕ",
+      "worker": "ਕਾਰੀਗਰ",
+      "amount": "ਰਕਮ",
+      "services": {
+        "fan_repair": "ਪੱਖਾ ਮੁਰੰਮਤ",
+        "tap_repair": "ਟੂਟੀ ਮੁਰੰਮਤ",
+        "home_cleaning": "ਘਰ ਦੀ ਸਫ਼ਾਈ",
+        "furniture_repair": "ਫਰਨੀਚਰ ਮੁਰੰਮਤ",
+        "elder_care": "ਬਜ਼ੁਰਗ ਦੇਖਭਾਲ",
+        "wall_painting": "ਕੰਧ ਪੇਂਟਿੰਗ",
+        "unknown": "ਸੇਵਾ"
+      },
+      "bookingStatus": {
+        "REQUESTED": "ਬੇਨਤੀ ਕੀਤੀ",
+        "ASSIGNED": "ਸੌਂਪਿਆ",
+        "EN_ROUTE": "ਰਸਤੇ ਵਿੱਚ",
+        "ARRIVED": "ਪਹੁੰਚ ਗਿਆ",
+        "IN_PROGRESS": "ਜਾਰੀ",
+        "COMPLETED": "ਪੂਰਾ",
+        "PAID": "ਭੁਗਤਾਨ ਹੋਇਆ",
+        "CANCELLED": "ਰੱਦ",
+        "UNFULFILLED": "ਅਧੂਰਾ"
+      },
+      "status": "ਸਥਿਤੀ"
+    },
+    "analytics": {
+      "heading": "ਵਿਸ਼ਲੇਸ਼ਣ",
+      "subtitle": "ਮੰਗ ਅਤੇ ਆਮਦਨ, ਪਿਛਲੇ 7 ਦਿਨ",
+      "revenue7d": "ਆਮਦਨ (7d)",
+      "bookings7d": "ਬੁਕਿੰਗਾਂ (7d)",
+      "fulfillmentRate": "ਪੂਰਤੀ ਦਰ",
+      "service": "ਸੇਵਾ",
+      "requested": "ਬੇਨਤੀ ਕੀਤੀ",
+      "fulfilled": "ਪੂਰੀ",
+      "unfulfilled": "ਅਧੂਰੀ",
+      "revenue": "ਆਮਦਨ",
+      "services": {
+        "fan_repair": "ਪੱਖਾ ਮੁਰੰਮਤ",
+        "tap_repair": "ਟੂਟੀ ਮੁਰੰਮਤ",
+        "home_cleaning": "ਘਰ ਦੀ ਸਫ਼ਾਈ",
+        "furniture_repair": "ਫਰਨੀਚਰ ਮੁਰੰਮਤ",
+        "elder_care": "ਬਜ਼ੁਰਗ ਦੇਖਭਾਲ",
+        "wall_painting": "ਕੰਧ ਪੇਂਟਿੰਗ",
+        "unknown": "ਸੇਵਾ"
+      }
     }
   },
   "federation": {
@@ -269,6 +405,38 @@
       "readColumnBody2": "ਕੈਲਾਸ਼ ਦੀ ਹਾਲੇ ਕੋਈ ਰੇਟਿੰਗ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਉਹਨਾਂ ਨੂੰ ਜ਼ੀਰੋ ਦੀ ਬਜਾਏ ਨਿਰਪੱਖ 0.70 ਦਿੱਤਾ ਗਿਆ ਹੈ, ਤਾਂ ਜੋ ਨਵੇਂ ਮੈਂਬਰ ਹਮੇਸ਼ਾ ਲਈ ਕੰਮ ਤੋਂ ਵਾਂਝੇ ਨਾ ਰਹਿਣ।",
       "weightingHeading": "ਐਮਰਜੈਂਸੀ ਭਾਰ",
       "weightingBody": "ਐਮਰਜੈਂਸੀ ਵਿੱਚ ਨੇੜਤਾ 60% ਰੱਖਦੀ ਹੈ ਕਿਉਂਕਿ ਜਲਦੀ ਪਹੁੰਚਣਾ ਹੀ ਸੇਵਾ ਹੈ। ਤੈਅ ਬੁਕਿੰਗ ਵਿੱਚ ਭਾਰ ਬਦਲਦਾ ਹੈ: ਨੇੜਤਾ 35%, ਹੁਨਰ 25%, ਨਿਰਪੱਖਤਾ 20%।"
+    },
+    "overview": {
+      "heading": "{federation}",
+      "subtitle": "ਫੈਡਰੇਸ਼ਨ-ਵਿਆਪੀ ਸੰਖੇਪ",
+      "societies": "ਸੋਸਾਇਟੀਆਂ",
+      "workers": "ਕਾਰੀਗਰ",
+      "jobsThisWeek": "ਇਸ ਹਫ਼ਤੇ ਦੇ ਕੰਮ",
+      "revenueThisWeek": "ਇਸ ਹਫ਼ਤੇ ਦੀ ਆਮਦਨ",
+      "societiesHeading": "ਸੋਸਾਇਟੀਆਂ",
+      "workerCount": "{count} ਕਾਰੀਗਰ"
+    },
+    "societiesList": {
+      "heading": "ਸੋਸਾਇਟੀਆਂ",
+      "subtitle": "{count} ਮੈਂਬਰ ਸੋਸਾਇਟੀਆਂ",
+      "name": "ਨਾਮ",
+      "district": "ਜ਼ਿਲ੍ਹਾ",
+      "registrationNo": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰ.",
+      "verifiedWorkers": "ਪ੍ਰਮਾਣਿਤ",
+      "totalWorkers": "ਕੁੱਲ ਕਾਰੀਗਰ"
+    },
+    "heatmap": {
+      "heading": "ਸੋਸਾਇਟੀ ਅਨੁਸਾਰ ਮੰਗ",
+      "subtitle": "ਬੁਕਿੰਗ ਬੇਨਤੀਆਂ, ਪਿਛਲੇ 7 ਦਿਨ",
+      "requestsCount": "{count} ਬੇਨਤੀਆਂ"
+    },
+    "welfare": {
+      "heading": "ਭਲਾਈ ਫੰਡ",
+      "subtitle": "ਪੂਰੀ ਫੈਡਰੇਸ਼ਨ ਵਿੱਚ ਜਮ੍ਹਾਂ ਯੋਗਦਾਨ",
+      "fundHeading": "ਕੁੱਲ ਜਮ੍ਹਾਂ",
+      "fundSubtitle": "{count} ਯੋਗਦਾਨ",
+      "recentHeading": "ਤਾਜ਼ਾ ਯੋਗਦਾਨ",
+      "empty": "ਹਾਲੇ ਕੋਈ ਯੋਗਦਾਨ ਨਹੀਂ।"
     }
   },
   "landing": {

@@ -40,6 +40,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       societies: {
         Row: {
@@ -78,6 +79,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       profiles: {
         Row: {
@@ -122,6 +124,7 @@ export type Database = {
           updated_at?: string;
           deleted_at?: string | null;
         };
+        Relationships: [];
       };
       service_categories: {
         Row: {
@@ -148,6 +151,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       skills: {
         Row: {
@@ -171,6 +175,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       services: {
         Row: {
@@ -206,6 +211,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       workers: {
         Row: {
@@ -274,6 +280,7 @@ export type Database = {
           updated_at?: string;
           deleted_at?: string | null;
         };
+        Relationships: [];
       };
       worker_documents: {
         Row: {
@@ -312,6 +319,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       worker_skills: {
         Row: {
@@ -344,6 +352,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       worker_availability: {
         Row: {
@@ -373,6 +382,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       society_service_rates: {
         Row: {
@@ -417,6 +427,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       addresses: {
         Row: {
@@ -458,6 +469,7 @@ export type Database = {
           updated_at?: string;
           deleted_at?: string | null;
         };
+        Relationships: [];
       };
       bookings: {
         Row: {
@@ -526,6 +538,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       booking_offers: {
         Row: {
@@ -573,6 +586,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       booking_status_history: {
         Row: {
@@ -605,6 +619,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       payments: {
         Row: {
@@ -646,6 +661,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       payment_splits: {
         Row: {
@@ -681,6 +697,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       invoices: {
         Row: {
@@ -710,6 +727,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       ratings: {
         Row: {
@@ -745,6 +763,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       welfare_contributions: {
         Row: {
@@ -777,6 +796,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       insurance_policies: {
         Row: {
@@ -815,6 +835,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       daily_demand_stats: {
         Row: {
@@ -856,6 +877,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       demand_forecasts: {
         Row: {
@@ -900,6 +922,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

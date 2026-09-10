@@ -135,6 +135,38 @@
       "summaryNote": "{societyAmount} stayed in Shimla. {welfareAmount} went to {name}'s welfare fund — now {welfareTotal}.",
       "receipt": "Receipt",
       "rate": "Rate this job"
+    },
+    "bookings": {
+      "heading": "Your bookings",
+      "emptyTitle": "No bookings yet.",
+      "emptyBody": "Book a service from Home to see it here.",
+      "noWorkerYet": "Finding a worker…",
+      "services": {
+        "fan_repair": "Fan repair",
+        "tap_repair": "Tap repair",
+        "home_cleaning": "Home cleaning",
+        "furniture_repair": "Furniture repair",
+        "elder_care": "Elder care",
+        "wall_painting": "Wall painting",
+        "unknown": "Service"
+      },
+      "bookingStatus": {
+        "REQUESTED": "Requested",
+        "ASSIGNED": "Assigned",
+        "EN_ROUTE": "On the way",
+        "ARRIVED": "Arrived",
+        "IN_PROGRESS": "In progress",
+        "COMPLETED": "Completed",
+        "PAID": "Paid",
+        "CANCELLED": "Cancelled",
+        "UNFULFILLED": "Unfulfilled"
+      }
+    },
+    "profile": {
+      "addressesHeading": "Your addresses",
+      "noAddresses": "No saved addresses yet.",
+      "default": "Default",
+      "logout": "Log out"
     }
   },
   "worker": {
@@ -190,6 +222,30 @@
       "resend": "Resend",
       "questionsHeading": "Questions?",
       "questionsBody": "{name} · Society office · {phone}"
+    },
+    "jobDetail": {
+      "statusHeading": "Job status",
+      "startOtp": "Start OTP",
+      "services": {
+        "fan_repair": "Fan repair",
+        "tap_repair": "Tap repair",
+        "home_cleaning": "Home cleaning",
+        "furniture_repair": "Furniture repair",
+        "elder_care": "Elder care",
+        "wall_painting": "Wall painting",
+        "unknown": "Service"
+      },
+      "bookingStatus": {
+        "REQUESTED": "Requested",
+        "ASSIGNED": "Assigned",
+        "EN_ROUTE": "On the way",
+        "ARRIVED": "Arrived",
+        "IN_PROGRESS": "In progress",
+        "COMPLETED": "Completed",
+        "PAID": "Paid",
+        "CANCELLED": "Cancelled",
+        "UNFULFILLED": "Unfulfilled"
+      }
     }
   },
   "society": {
@@ -226,6 +282,86 @@
       "platform": "Platform",
       "workerKeepsNote": "Worker keeps {pct}. A private aggregator on the same job typically returns 70–75% and contributes nothing to insurance.",
       "save": "Save rate card"
+    },
+    "overview": {
+      "heading": "{society}",
+      "subtitle": "{count} members in your society",
+      "verifiedWorkers": "Verified workers",
+      "pendingVerification": "Pending verification",
+      "activeBookings": "Active bookings",
+      "jobsThisWeek": "Jobs this week",
+      "revenueHeading": "Revenue — last 7 days",
+      "revenueSubtitle": "Across all services in your society"
+    },
+    "workers": {
+      "heading": "Members",
+      "subtitle": "{count} registered workers",
+      "name": "Name",
+      "membershipNo": "Membership no.",
+      "status": "Status",
+      "rating": "Rating",
+      "jobsCompleted": "Jobs",
+      "available": "Available",
+      "yes": "Yes",
+      "no": "No",
+      "verificationStatus": {
+        "PENDING": "Pending",
+        "UNDER_REVIEW": "Under review",
+        "VERIFIED": "Verified",
+        "REJECTED": "Rejected",
+        "SUSPENDED": "Suspended"
+      }
+    },
+    "bookingsList": {
+      "heading": "Bookings",
+      "subtitle": "{count} bookings in your society",
+      "code": "Code",
+      "service": "Service",
+      "customer": "Customer",
+      "worker": "Worker",
+      "amount": "Amount",
+      "services": {
+        "fan_repair": "Fan repair",
+        "tap_repair": "Tap repair",
+        "home_cleaning": "Home cleaning",
+        "furniture_repair": "Furniture repair",
+        "elder_care": "Elder care",
+        "wall_painting": "Wall painting",
+        "unknown": "Service"
+      },
+      "bookingStatus": {
+        "REQUESTED": "Requested",
+        "ASSIGNED": "Assigned",
+        "EN_ROUTE": "On the way",
+        "ARRIVED": "Arrived",
+        "IN_PROGRESS": "In progress",
+        "COMPLETED": "Completed",
+        "PAID": "Paid",
+        "CANCELLED": "Cancelled",
+        "UNFULFILLED": "Unfulfilled"
+      },
+      "status": "Status"
+    },
+    "analytics": {
+      "heading": "Analytics",
+      "subtitle": "Demand and revenue, last 7 days",
+      "revenue7d": "Revenue (7d)",
+      "bookings7d": "Bookings (7d)",
+      "fulfillmentRate": "Fulfillment rate",
+      "service": "Service",
+      "requested": "Requested",
+      "fulfilled": "Fulfilled",
+      "unfulfilled": "Unfulfilled",
+      "revenue": "Revenue",
+      "services": {
+        "fan_repair": "Fan repair",
+        "tap_repair": "Tap repair",
+        "home_cleaning": "Home cleaning",
+        "furniture_repair": "Furniture repair",
+        "elder_care": "Elder care",
+        "wall_painting": "Wall painting",
+        "unknown": "Service"
+      }
     }
   },
   "federation": {
@@ -269,6 +405,38 @@
       "readColumnBody2": "Kailash has no ratings yet and is given a neutral 0.70 rather than zero, so new members are not locked out of work permanently.",
       "weightingHeading": "Emergency weighting",
       "weightingBody": "On an emergency, proximity carries 60% because arriving fast is the service. On a scheduled booking the weights shift: proximity 35%, skill 25%, fairness 20%."
+    },
+    "overview": {
+      "heading": "{federation}",
+      "subtitle": "Federation-wide summary",
+      "societies": "Societies",
+      "workers": "Workers",
+      "jobsThisWeek": "Jobs this week",
+      "revenueThisWeek": "Revenue this week",
+      "societiesHeading": "Societies",
+      "workerCount": "{count} workers"
+    },
+    "societiesList": {
+      "heading": "Societies",
+      "subtitle": "{count} member societies",
+      "name": "Name",
+      "district": "District",
+      "registrationNo": "Registration no.",
+      "verifiedWorkers": "Verified",
+      "totalWorkers": "Total workers"
+    },
+    "heatmap": {
+      "heading": "Demand by society",
+      "subtitle": "Booking requests, last 7 days",
+      "requestsCount": "{count} requests"
+    },
+    "welfare": {
+      "heading": "Welfare fund",
+      "subtitle": "Contributions credited across the federation",
+      "fundHeading": "Total credited",
+      "fundSubtitle": "{count} contributions",
+      "recentHeading": "Recent contributions",
+      "empty": "No contributions yet."
     }
   },
   "landing": {
